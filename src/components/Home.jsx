@@ -1,78 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-
 import { useEffect, useState } from 'react';
-import { ArrowRight, Truck, Shield, Clock, Gift } from 'lucide-react';
+import { ArrowRight, Truck, Shield, Clock, Gift, ShoppingBag } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 
 export const Home = ({ onNavigate }) => {
@@ -88,7 +15,7 @@ export const Home = ({ onNavigate }) => {
       description: 'Beautiful red roses arranged in an elegant bouquet',
       price: 1299,
       discount_price: 999,
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://i.pinimg.com/736x/62/41/eb/6241eb803728ad49fc8a684fa905e62b.jpg',
       category_id: '1',
       stock: 15,
       is_featured: true,
@@ -102,7 +29,7 @@ export const Home = ({ onNavigate }) => {
       slug: 'lily-arrangement',
       description: 'Fresh white lilies with green foliage',
       price: 899,
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://png.pngtree.com/png-clipart/20250531/original/pngtree-white-lilies-blooming-with-green-fresh-leaves-png-image_21099878.png',
       category_id: '2',
       stock: 8,
       is_featured: true,
@@ -117,7 +44,7 @@ export const Home = ({ onNavigate }) => {
       description: 'Colorful mixed flowers in a beautiful basket',
       price: 1599,
       discount_price: 1299,
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://m.media-amazon.com/images/I/51iOaW6oc8L._UF894,1000_QL80_.jpg',
       category_id: '3',
       stock: 12,
       is_featured: true,
@@ -131,7 +58,7 @@ export const Home = ({ onNavigate }) => {
       slug: 'orchid-plant',
       description: 'Elegant orchid plant in decorative pot',
       price: 1999,
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://image.made-in-china.com/202f0j00fNnhjszyGKgZ/New-Design-High-Quality-Silk-Artificial-Orchid-Plants-Orchid-Flowers-Small-Potted-Orchid-for-Indoor-Decoration.webp',
       category_id: '4',
       stock: 6,
       is_featured: true,
@@ -145,7 +72,7 @@ export const Home = ({ onNavigate }) => {
       slug: 'sunflower-bouquet',
       description: 'Bright and cheerful sunflower arrangement',
       price: 799,
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://thumbs.dreamstime.com/b/woman-holding-bouquet-bright-sunflowers-flower-market-cheerful-yellow-blooms-radiating-joy-outdoor-setting-concept-floral-369470115.jpg',
       category_id: '1',
       stock: 10,
       is_featured: true,
@@ -160,7 +87,7 @@ export const Home = ({ onNavigate }) => {
       description: 'Beautiful tulips in various colors',
       price: 1099,
       discount_price: 899,
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://media.istockphoto.com/id/511112100/photo/tulips.jpg?s=612x612&w=0&k=20&c=BIdlCAFoXLqYIIeFpJJ8Pmbw6_68vOPGEfLr8tInMhM=',
       category_id: '2',
       stock: 14,
       is_featured: true,
@@ -175,42 +102,42 @@ export const Home = ({ onNavigate }) => {
       id: '1',
       name: 'Roses',
       slug: 'roses',
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://m.media-amazon.com/images/I/51lzmjkGfOL._UF894,1000_QL80_.jpg',
       description: 'Beautiful rose arrangements'
     },
     {
       id: '2',
       name: 'Lilies',
       slug: 'lilies',
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://i.pinimg.com/736x/1b/4b/6f/1b4b6f68902bf22047e1ec6b78180a23.jpg',
       description: 'Elegant lily bouquets'
     },
     {
       id: '3',
       name: 'Mixed Bouquets',
       slug: 'mixed-bouquets',
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://cdn.bloomsflora.com/uploads/product/flowers_n_fruits/1687421373_13140.png',
       description: 'Colorful mixed flower arrangements'
     },
     {
       id: '4',
       name: 'Orchids',
       slug: 'orchids',
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://rukminim2.flixcart.com/image/480/640/xif0q/plant-sapling/8/x/e/perennial-no-yes-exotic-orchid-indoor-live-flower-plant-pack-of-original-imaggxhczk9yn7bh.jpeg?q=90',
       description: 'Exotic orchid plants'
     },
     {
       id: '5',
       name: 'Seasonal',
       slug: 'seasonal',
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeuLI5VuxNV2iJRCutPtbQ6vngQLw4-QaTHg&s',
       description: 'Seasonal flower collections'
     },
     {
       id: '6',
       name: 'Wedding',
       slug: 'wedding',
-      image_url: 'https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400',
+      image_url: 'https://abia.com.au/abia-admin/ckfinder/userfiles/images/complete-guide-to-wedding-flowers-Willow-Bud-Perwillowen-photo-@trentandjessie.webp',
       description: 'Special wedding arrangements'
     }
   ];
@@ -218,9 +145,9 @@ export const Home = ({ onNavigate }) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      
+
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       setFeaturedProducts(mockFeaturedProducts);
       setCategories(mockCategories);
       setLoading(false);
@@ -234,7 +161,7 @@ export const Home = ({ onNavigate }) => {
       <section
         className="relative h-[600px] bg-cover bg-center"
         style={{
-          backgroundImage: 'url(https://img.freepik.com/free-vector/hand-painted-watercolor-floral-wallpaper_52683-67104.jpg)',
+          backgroundImage: 'url(https://t3.ftcdn.net/jpg/05/30/03/40/360_F_530034062_Zfweld9RDiPmKrg1hblsFcIlWafencPt.jpg)',
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
@@ -247,7 +174,7 @@ export const Home = ({ onNavigate }) => {
               Fresh blooms delivered to your doorstep. Make every moment special with our handpicked collection.
             </p>
             <button
-              onClick={() => onNavigate('shop')}
+              onClick={() => onNavigate('/')}
               className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center gap-2 transition-all hover:scale-105"
             >
               Shop Now
@@ -257,36 +184,30 @@ export const Home = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center text-center">
-              <div className="bg-rose-100 p-4 rounded-full mb-4">
-                <Truck className="text-rose-600" size={32} />
+      <section className='py-16 bg-gray-50'>
+        <div className='container mx-auto px-4'>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+            <div className='flex flex-col items-center text-center'>
+              <div className='bg-rose-100  p-4 rounded-full mb-1'>
+                <Truck className='text-rose-600' size={32} />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Free Delivery</h3>
+              <h3 className='text-lg mb-2 font-semibold'>Free Delivery</h3>
               <p className="text-gray-600 text-sm">On orders above ₹999</p>
+
             </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="bg-rose-100 p-4 rounded-full mb-4">
-                <Shield className="text-rose-600" size={32} />
+            <div className='flex flex-col items-center text-center'>
+              <div className='bg-rose-100  p-4 rounded-full mb-1'>
+                <ShoppingBag className='text-rose-600' size={32} />
               </div>
-              <h3 className="text-lg font-semibold mb-2">100% Fresh</h3>
-              <p className="text-gray-600 text-sm">Quality guaranteed flowers</p>
+              <h3 className='text-lg mb-2 font-semibold'>Free Shopping</h3>
+              <p className='text-gray-600 test-sm'>Cost on all order $0.00</p>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="bg-rose-100 p-4 rounded-full mb-4">
-                <Clock className="text-rose-600" size={32} />
+            <div className='flex flex-col items-center text-center'>
+              <div className='bg-rose-100  p-4 rounded-full mb-1'>
+                <Gift className='text-rose-600' size={32} />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Same Day Delivery</h3>
-              <p className="text-gray-600 text-sm">Order before 2 PM</p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="bg-rose-100 p-4 rounded-full mb-4">
-                <Gift className="text-rose-600" size={32} />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Gift Wrapping</h3>
-              <p className="text-gray-600 text-sm">Complimentary service</p>
+              <h3 className='text-lg mb-2 font-semibold'>Free Delivery</h3>
+              <p className='text-gray-600 text-sm'>on order above 999</p>
             </div>
           </div>
         </div>
@@ -368,7 +289,7 @@ export const Home = ({ onNavigate }) => {
       <section
         className="py-24 bg-cover bg-center relative"
         style={{
-          backgroundImage: 'url(https://img.freepik.com/free-vector/hand-painted-watercolor-floral-wallpaper_52683-67104.jpg)',
+          backgroundImage: 'url(https://t3.ftcdn.net/jpg/05/30/03/40/360_F_530034062_Zfweld9RDiPmKrg1hblsFcIlWafencPt.jpg)',
         }}
       >
         <div className="absolute inset-0 bg-black/60" />
@@ -394,6 +315,12 @@ export const Home = ({ onNavigate }) => {
           </form>
         </div>
       </section>
+
+      <section className='mb-12'>
+
+      </section>
+
+
     </div>
   );
 };
