@@ -289,7 +289,7 @@ export const Home = ({ onNavigate }) => {
       <section
         className="py-24 bg-cover bg-center relative"
         style={{
-          backgroundImage: 'url(https://t3.ftcdn.net/jpg/05/30/03/40/360_F_530034062_Zfweld9RDiPmKrg1hblsFcIlWafencPt.jpg)',
+          backgroundImage: 'url(/images/sub.png)',
         }}
       >
         <div className="absolute inset-0 bg-black/60" />
@@ -316,11 +316,19 @@ export const Home = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className='mb-12'>
-
+      <section className='mb-12'> 
+          <div> 
+            <div>
+              <div>
+                <div>
+                  <div className=''>
+                    <span className='text-5xl w-[600px] text-uppercase line-height:1rem'>Collections of layouts</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       </section>
-
-
     </div>
   );
 };

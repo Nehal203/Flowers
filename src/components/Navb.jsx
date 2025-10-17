@@ -60,7 +60,7 @@ const Navb = () => {
                     </li>
                     <li>
                         <Link
-                            to="/puja"
+                            to="/shop"
                             className="text-black hover:text-orange-500 transition"
                         >
                          Shop   
@@ -68,7 +68,7 @@ const Navb = () => {
                     </li>
                     <li>
                         <Link
-                            to="/blog"
+                            to="/product"
                             className="text-black hover:text-orange-500 transition"
                         >
                             Product
