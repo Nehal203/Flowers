@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 const About = () => {
 
-
-
     const teamMembers = [
         {
             id: 1,
@@ -207,8 +205,6 @@ const About = () => {
                 </div>
             </section>
 
-
-
             <section className="bg-[#1A0000] text-white py-20 px-6 md:px-16">
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <div className="flex justify-center">
@@ -226,16 +222,12 @@ const About = () => {
                             Explore Our Exquisite Floral Collections & Shop Now for the Perfect Blooms
                         </h2>
                         <Link to="/shop" className="bg-white text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-100 transition duration-300 inline-block">
-                        Shop Now
-                    </Link>
+                            Shop Now
+                        </Link>
                     </div>
-                    
                 </div>
             </section>
 
-
-
-           
         </div>
     );
 };

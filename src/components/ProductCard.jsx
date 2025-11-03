@@ -6,13 +6,20 @@ export const ProductCard = ({ product, onNavigate }) => {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     alert('Please login to add items to cart');
   };
 
   const handleWishlist = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     setIsWishlisted(!isWishlisted);
     alert(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+  };
+
+  const handleCardClick = (e) => {
+    e.preventDefault();
+    onNavigate('product', product.slug);
   };
 
   const finalPrice = product.discount_price || product.price;
@@ -21,7 +28,7 @@ export const ProductCard = ({ product, onNavigate }) => {
   return (
     <div
       className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer group hover:shadow-lg transition-all duration-300"
-      onClick={() => onNavigate('product', product.slug)}
+      onClick={handleCardClick}
     >
       <div className="relative overflow-hidden">
         <img

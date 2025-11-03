@@ -233,7 +233,7 @@ export const Home = ({ onNavigate }) => {
                 <div
                   key={category.id}
                   className="cursor-pointer group"
-                  onClick={() => onNavigate('shop', category.slug)}
+                  onClick={() => onNavigate(`/shop/category/${category.slug}`)}
                 >
                   <div className="relative overflow-hidden rounded-lg shadow-md aspect-square">
                     <img
@@ -270,7 +270,11 @@ export const Home = ({ onNavigate }) => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} onNavigate={onNavigate} />
+                <ProductCard 
+                  key={product.id} 
+                  product={product} 
+                  onNavigate={(type, slug) => onNavigate(`/${type}/${slug}`)} 
+                />
               ))}
             </div>
           )}
