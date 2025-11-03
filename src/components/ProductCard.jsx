@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
 
-export const ProductCard = ({ product, onNavigate }) => {
+export const ProductCard = ({ product, onNavigate, onAddToCart }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    alert('Please login to add items to cart');
+    if (onAddToCart) {
+      onAddToCart(product);
+    } else {
+      alert('Please login to add items to cart');
+    }
   };
 
   const handleWishlist = (e) => {
@@ -44,8 +48,16 @@ export const ProductCard = ({ product, onNavigate }) => {
                 ? 'bg-rose-500 text-white' 
                 : 'bg-white/80 text-gray-600 hover:bg-rose-500 hover:text-white'
             }`}
+            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
           >
             <Heart size={18} fill={isWishlisted ? 'currentColor' : 'none'} />
+          </button>
+          <button
+            onClick={handleAddToCart}
+            className="p-2 rounded-full backdrop-blur-sm transition bg-white/80 text-gray-600 hover:bg-rose-500 hover:text-white"
+            aria-label="Add to cart"
+          >
+            <ShoppingCart size={18} />
           </button>
         </div>
         {hasDiscount && (

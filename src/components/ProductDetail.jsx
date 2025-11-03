@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Heart, ShoppingCart, Star } from 'lucide-react';
+import { ArrowLeft, Heart, ShoppingCart, Star, Minus, Plus } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { useCart } from '../contexts/CartContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductDetail = () => {
   const { productSlug } = useParams();
@@ -62,8 +65,20 @@ const ProductDetail = () => {
     }
   }, [productSlug, navigate]);
 
+  const { addToCart } = useCart();
+  
   const handleAddToCart = () => {
-    alert('Added to cart!');
+    addToCart(product, quantity);
+    toast.success(`${product.name} added to cart!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    navigate('/cart');
   };
 
   const handleWishlist = () => {
@@ -134,7 +149,7 @@ const ProductDetail = () => {
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
           <div className="relative aspect-square">
             <img
-              src={product.image_url}
+              src={product.image}
               alt={product.name}
               className="w-full h-full object-cover"
             />

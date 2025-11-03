@@ -1,11 +1,19 @@
-import { useEffect, useState } from 'react';
-import { Filter, Grid, List } from 'lucide-react';
+import { useEffect, useState, useContext } from 'react';
+import { Filter, Grid, List, ShoppingCart } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { ProductGridCard } from '../components/ProductGridCard';
 import { ProductListCard } from '../components/ProductListCard';
 import { sampleProducts } from '../data/sampleProducts';
+import { useCart } from '../contexts/CartContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Shop = ({ onNavigate, categorySlug }) => {
+    const handleProductClick = (type, slug) => {
+        if (onNavigate) {
+            onNavigate(type, slug);
+        }
+    };
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(categorySlug || 'all');
@@ -72,8 +80,19 @@ export const Shop = ({ onNavigate, categorySlug }) => {
         }
     };
 
-    const addToCart = (product) => {
-        console.log('Added to cart:', product);
+    const { addToCart } = useCart();
+    
+    const handleAddToCart = (product) => {
+        addToCart(product, 1);
+        toast.success(`${product.name} added to cart!`, {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     };
 
     const addToWishlist = (product) => {
@@ -189,17 +208,17 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                                         <ProductGridCard
                                             key={product.id}
                                             product={product}
-                                            onAddToCart={addToCart}
+                                            addToCart={handleAddToCart}
                                             onAddToWishlist={addToWishlist}
-                                            onNavigate={onNavigate}
+                                            onNavigate={handleProductClick}
                                         />
                                     ) : (
                                         <ProductListCard
                                             key={product.id}
                                             product={product}
-                                            onAddToCart={addToCart}
+                                            addToCart={handleAddToCart}
                                             onAddToWishlist={addToWishlist}
-                                            onNavigate={onNavigate}
+                                            onNavigate={handleProductClick}
                                         />
                                     )
                                 ))}

@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import { CartProvider } from "./contexts/CartContext";
 import Navb from "./components/Navb";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
@@ -40,7 +41,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <CartProvider>
+        <AppContent />
+      </CartProvider>
     </Router>
   );
 }

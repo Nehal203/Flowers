@@ -1,8 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { ArrowRight, Truck, Shield, Clock, Gift, ShoppingBag } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
+import { useCart } from '../contexts/CartContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Home = ({ onNavigate }) => {
+  const { addToCart } = useCart();
+  
+  const handleAddToCart = (product) => {
+    addToCart(product, 1);
+    toast.success(`${product.name} added to cart!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -270,10 +287,11 @@ export const Home = ({ onNavigate }) => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredProducts.map((product) => (
-                <ProductCard 
-                  key={product.id} 
-                  product={product} 
-                  onNavigate={(type, slug) => onNavigate(`/${type}/${slug}`)} 
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onNavigate={onNavigate}
+                  onAddToCart={handleAddToCart}
                 />
               ))}
             </div>

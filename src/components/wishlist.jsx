@@ -74,7 +74,7 @@ export default function Wishlist() {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Wishlist</h1>
-      
+
       {wishlist.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-lg shadow">
           <HeartFilled className="w-16 h-16 mx-auto text-gray-300 mb-4" />
@@ -90,44 +90,16 @@ export default function Wishlist() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {wishlist.map((product) => (
-            <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden group relative">
-              <button
-                onClick={() => removeFromWishlist(product.id)}
-                className="absolute top-2 right-2 bg-white/90 p-2 rounded-full shadow-sm z-10 text-gray-500 hover:text-rose-500 transition-colors"
-                aria-label="Remove from wishlist"
-              >
-                <X size={18} />
-              </button>
-              
-              <div className="relative aspect-square">
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              
-              <div className="p-4">
-                <h3 className="font-medium text-gray-900 mb-1 line-clamp-1">{product.name}</h3>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-lg font-bold text-gray-900">
-                    ₹{product.discount_price || product.price}
-                  </span>
-                  {product.discount_price && (
-                    <span className="text-sm text-gray-500 line-through">
-                      ₹{product.price}
-                    </span>
-                  )}
-                </div>
-                <button
-                  onClick={() => moveToCart(product)}
-                  className="w-full flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white py-2 px-4 rounded-md font-medium transition-colors"
-                >
-                  <ShoppingCart size={18} />
-                  Move to Cart
-                </button>
-              </div>
-            </div>
+            <ProductCard
+              key={product.id}
+              product={product}
+              onNavigate={(type, slug) => window.location.href = `/${type}/${slug}`}
+              onAddToCart={(product) => {
+                console.log('Adding to cart:', product);
+                alert(`Added ${product.name} to cart`);
+                removeFromWishlist(product.id);
+              }}
+            />
           ))}
         </div>
       )}

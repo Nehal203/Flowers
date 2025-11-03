@@ -33,10 +33,8 @@ const Cart = () => {
   ];
 
   useEffect(() => {
-    // Simulate API call
     const fetchCart = async () => {
       try {
-        // In a real app, you would fetch the cart from your API or context
         await new Promise(resolve => setTimeout(resolve, 500));
         setCart(mockCart);
       } catch (error) {
@@ -74,7 +72,7 @@ const Cart = () => {
   };
 
   const subtotal = calculateSubtotal();
-  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 99) : 0; // Free shipping over 999
+  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 99) : 0; 
   const total = subtotal + shipping;
 
   if (loading) {

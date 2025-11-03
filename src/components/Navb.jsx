@@ -29,11 +29,9 @@ const Navb = () => {
                         <User size={16} />
                         <span>Log in / Register</span>
                     </button>
-                    <div className="flex items-center space-x-2">
+                    <Link to="/cart"><div className="flex items-center space-x-2">
                         <ShoppingCart size={18} className="text-orange-500" />
-                        <span>$512</span>
-                        <span className="bg-orange-500 text-xs px-2 rounded-full">02</span>
-                    </div>
+                    </div></Link>
                 </div>
             </div>
             <nav className="bg-white flex justify-between items-center px-6 py-4">
