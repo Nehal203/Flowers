@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
+import { useWishlist } from '../contexts/WishlistContext';
 
 export const ProductCard = ({ product, onNavigate, onAddToCart }) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(product.id);
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
@@ -17,13 +18,21 @@ export const ProductCard = ({ product, onNavigate, onAddToCart }) => {
   const handleWishlist = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    setIsWishlisted(!isWishlisted);
-    alert(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+    if (isWishlisted) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
   };
 
   const handleCardClick = (e) => {
     e.preventDefault();
-    onNavigate('product', product.slug);
+    const formattedSlug = product.slug
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]+/g, '');
+    onNavigate('product', formattedSlug);
   };
 
   const finalPrice = product.discount_price || product.price;

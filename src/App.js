@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { CartProvider } from "./contexts/CartContext";
+import { WishlistProvider } from "./contexts/WishlistContext";
 import Navb from "./components/Navb";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
@@ -10,12 +11,21 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
 import Wishlist from "./components/wishlist";
 import { useEffect } from "react";
+import Checkout from "./components/Checkout";
+import Login from "./components/Login";
+import Register from "./components/register";
 
 function AppContent() {
   const navigate = useNavigate();
 
-  const handleNavigation = (path) => {
-    navigate(path);
+  const handleNavigation = (typeOrPath, slug) => {
+    if (typeOrPath === 'product' && slug) {
+      navigate(`/product/${slug}`);
+    } else if (typeOrPath === 'category' && slug) {
+      navigate(`/shop/category/${slug}`);
+    } else if (typeof typeOrPath === 'string') {
+      navigate(typeOrPath);
+    }
   };
 
   return (
@@ -31,6 +41,9 @@ function AppContent() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </main>
       <Footer />
@@ -42,7 +55,9 @@ function App() {
   return (
     <Router>
       <CartProvider>
-        <AppContent />
+        <WishlistProvider>
+          <AppContent />
+        </WishlistProvider>
       </CartProvider>
     </Router>
   );

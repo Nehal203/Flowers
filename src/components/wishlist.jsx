@@ -1,70 +1,45 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { X, ShoppingCart, Heart as HeartFilled } from 'lucide-react';
-import ProductCard from './ProductCard';
+import { ShoppingCart, Heart as HeartFilled, X } from 'lucide-react';
+import { useWishlist } from '../contexts/WishlistContext';
+import { useCart } from '../contexts/CartContext';
+import { toast } from 'react-toastify';
 
-export default function Wishlist() {
-  const [wishlist, setWishlist] = useState([]);
-  const [loading, setLoading] = useState(true);
+const Wishlist = () => {
+  const { wishlist, removeFromWishlist } = useWishlist();
+  const { addToCart } = useCart();
+  const loading = false;
 
-  const mockWishlist = [
-    {
-      id: '1',
-      name: 'Red Rose Bouquet',
-      slug: 'red-rose-bouquet',
-      price: 1299,
-      discount_price: 999,
-      image_url: 'https://i.pinimg.com/736x/62/41/eb/6241eb803728ad49fc8a684fa905e62b.jpg',
-      inStock: true
-    },
-    {
-      id: '2',
-      name: 'Lily Arrangement',
-      slug: 'lily-arrangement',
-      price: 899,
-      image_url: 'https://png.pngtree.com/png-clipart/20250531/original/pngtree-white-lilies-blooming-with-green-fresh-leaves-png-image_21099878.png',
-      inStock: true
-    }
-  ];
-
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      try {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        setWishlist(mockWishlist);
-      } catch (error) {
-        console.error('Error fetching wishlist:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWishlist();
-  }, []);
-
-  const removeFromWishlist = (productId) => {
-    setWishlist(prev => prev.filter(item => item.id !== productId));
-  };
-
-  const moveToCart = (product) => {
-    alert(`Added ${product.name} to cart`);
-    removeFromWishlist(product.id);
+  const handleAddToCart = (product) => {
+    addToCart(product, 1);
+    toast.success(`${product.name} added to cart!`, {
+      position: 'bottom-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-16">
-        <div className="animate-pulse space-y-8">
-          <div className="h-10 bg-gray-200 rounded w-1/4 mb-8"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="bg-white rounded-lg shadow-md p-4">
-                <div className="h-48 bg-gray-200 rounded mb-4"></div>
-                <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
-                <div className="h-10 bg-gray-200 rounded w-full"></div>
-              </div>
-            ))}
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="container mx-auto px-4">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-1/3 mb-8"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden">
+                  <div className="h-64 bg-gray-200"></div>
+                  <div className="p-4">
+                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -72,37 +47,112 @@ export default function Wishlist() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Wishlist</h1>
-
-      {wishlist.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-lg shadow">
-          <HeartFilled className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-          <h2 className="text-2xl font-semibold text-gray-700 mb-2">Your wishlist is empty</h2>
-          <p className="text-gray-500 mb-6">You haven't added any products to your wishlist yet.</p>
-          <Link
-            to="/shop"
-            className="inline-flex items-center justify-center px-6 py-3 bg-rose-600 text-white rounded-lg font-medium hover:bg-rose-700 transition-colors"
-          >
-            Continue Shopping
-          </Link>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {wishlist.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onNavigate={(type, slug) => window.location.href = `/${type}/${slug}`}
-              onAddToCart={(product) => {
-                console.log('Adding to cart:', product);
-                alert(`Added ${product.name} to cart`);
-                removeFromWishlist(product.id);
-              }}
-            />
-          ))}
-        </div>
-      )}
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="container mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8">Your Wishlist</h1>
+        
+        {wishlist.length === 0 ? (
+          <div className="text-center py-12">
+            <HeartFilled className="mx-auto h-16 w-16 text-gray-300 mb-4" />
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">Your wishlist is empty</h2>
+            <p className="text-gray-500 mb-6">Save your favorite items here to view them later</p>
+            <Link 
+              to="/shop" 
+              className="inline-block bg-rose-600 text-white px-6 py-2 rounded-md hover:bg-rose-700 transition-colors"
+            >
+              Continue Shopping
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {wishlist.map((product) => (
+              <div key={product.id} className="group relative bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src={product.image_url || product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="bg-white p-2 rounded-full text-gray-800 hover:bg-rose-500 hover:text-white transition-colors"
+                      aria-label="Add to cart"
+                    >
+                      <ShoppingCart size={20} />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeFromWishlist(product.id);
+                        toast.info(`${product.name} removed from wishlist`);
+                      }}
+                      className="bg-white p-2 rounded-full text-rose-500 hover:bg-rose-500 hover:text-white transition-colors"
+                      aria-label="Remove from wishlist"
+                      title="Remove from wishlist"
+                    >
+                      <HeartFilled size={20} fill="currentColor" />
+                    </button>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg mb-1">
+                    <Link to={`/product/${product.slug || product.id}`} className="hover:text-rose-600">
+                      {product.name}
+                    </Link>
+                  </h3>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-2 gap-2 w-full">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg font-bold text-gray-900">
+                        ₹{product.discount_price || product.price}
+                      </span>
+                      {product.discount_price && (
+                        <span className="text-sm text-gray-500 line-through">
+                          ₹{product.price}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleAddToCart(product);
+                        }}
+                        className="flex-1 sm:flex-none bg-rose-600 hover:bg-rose-700 text-white px-2 py-2 rounded-md text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                      >
+                        <ShoppingCart size={16} />
+                        Add to Cart
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          removeFromWishlist(product.id);
+                          toast.info(`${product.name} removed from wishlist`, {
+                            position: 'top-center',
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                          });
+                        }}
+                        className="flex-1 sm:flex-none border border-gray-300 hover:bg-rose-50 hover:border-rose-200 text-rose-600 px-2 py-2 rounded-md text-sm font-medium transition-colors flex items-center justify-center gap-2"
+                      >
+                        <X size={16} />
+                        {/* Remove */}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default Wishlist;

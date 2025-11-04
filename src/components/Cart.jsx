@@ -1,79 +1,30 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { X, Plus, Minus, Trash2, ShoppingCart as CartIcon, ArrowRight } from 'lucide-react';
+import { useCart } from '../contexts/CartContext';
 
 const Cart = () => {
-  const [cart, setCart] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { 
+    cart, 
+    removeFromCart, 
+    updateQuantity, 
+    getCartTotal, 
+    getCartItemCount 
+  } = useCart();
+  const [loading, setLoading] = useState(false);
 
-  const mockCart = [
-    {
-      id: '1',
-      product: {
-        id: '1',
-        name: 'Red Rose Bouquet',
-        slug: 'red-rose-bouquet',
-        price: 1299,
-        discount_price: 999,
-        image_url: 'https://i.pinimg.com/736x/62/41/eb/6241eb803728ad49fc8a684fa905e62b.jpg',
-      },
-      quantity: 2,
-    },
-    {
-      id: '2',
-      product: {
-        id: '2',
-        name: 'Lily Arrangement',
-        slug: 'lily-arrangement',
-        price: 899,
-        image_url: 'https://png.pngtree.com/png-clipart/20250531/original/pngtree-white-lilies-blooming-with-green-fresh-leaves-png-image_21099878.png',
-      },
-      quantity: 1,
-    },
-  ];
-
-  useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        setCart(mockCart);
-      } catch (error) {
-        console.error('Error fetching cart:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCart();
-  }, []);
-
-  const updateQuantity = (itemId, newQuantity) => {
-    if (newQuantity < 1) return;
-    setCart(prev =>
-      prev.map(item =>
-        item.id === itemId ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const removeItem = (itemId) => {
-    setCart(prev => prev.filter(item => item.id !== itemId));
-  };
-
-  const calculateSubtotal = () => {
-    return cart.reduce((total, item) => {
-      const price = item.product.discount_price || item.product.price;
-      return total + price * item.quantity;
-    }, 0);
-  };
-
-  const calculateTotalItems = () => {
-    return cart.reduce((total, item) => total + item.quantity, 0);
-  };
-
-  const subtotal = calculateSubtotal();
-  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 99) : 0; 
+  const subtotal = getCartTotal();
+  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 99) : 0;
   const total = subtotal + shipping;
+  
+  const handleUpdateQuantity = (itemId, newQuantity) => {
+    if (newQuantity < 1) return;
+    updateQuantity(itemId, newQuantity);
+  };
+
+  const handleRemoveItem = (itemId) => {
+    removeFromCart(itemId);
+  };
 
   if (loading) {
     return (
@@ -100,7 +51,7 @@ const Cart = () => {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Cart ({calculateTotalItems()})</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Cart ({getCartItemCount()})</h1>
       
       {cart.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-lg shadow">
@@ -140,7 +91,7 @@ const Cart = () => {
                           </Link>
                         </h3>
                         <button
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => handleRemoveItem(item.id)}
                           className="text-gray-400 hover:text-rose-500"
                           aria-label="Remove item"
                         >
@@ -162,7 +113,7 @@ const Cart = () => {
                       <div className="mt-4 flex items-center">
                         <div className="flex items-center border border-gray-300 rounded-md">
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
                             className="px-3 py-1 text-gray-600 hover:bg-gray-100 h-full"
                             aria-label="Decrease quantity"
                           >
@@ -170,7 +121,7 @@ const Cart = () => {
                           </button>
                           <span className="w-10 text-center">{item.quantity}</span>
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
                             className="px-3 py-1 text-gray-600 hover:bg-gray-100 h-full"
                             aria-label="Increase quantity"
                           >
@@ -179,7 +130,7 @@ const Cart = () => {
                         </div>
                         
                         <button
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => handleRemoveItem(item.id)}
                           className="ml-4 text-sm text-rose-600 hover:text-rose-700 flex items-center gap-1"
                         >
                           <Trash2 size={16} />
@@ -208,58 +159,58 @@ const Cart = () => {
               </Link>
             </div>
           </div>
-          
-          <div className="lg:w-96 flex-shrink-0">
-            <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
-              
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Subtotal ({calculateTotalItems()} items)</span>
-                  <span className="font-medium">₹{subtotal.toLocaleString()}</span>
+                    <div className="lg:w-96 flex-shrink-0">
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+                <div className="space-y-4">
+                  <div className="flex justify-between">
+                    <span>Subtotal ({getCartItemCount()} items)</span>
+                    <span>₹{subtotal.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Shipping</span>
+                    <span>{shipping === 0 ? 'Free' : `₹${shipping}`}</span>
+                  </div>
+                  <div className="border-t border-gray-200 pt-4 mt-4">
+                    <div className="flex justify-between font-semibold text-lg">
+                      <span>Total</span>
+                      <span>₹{total.toLocaleString()}</span>
+                    </div>
+                  </div>
                 </div>
-                
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Shipping</span>
-                  <span className="font-medium">
-                    {shipping === 0 ? 'Free' : `₹${shipping}`}
-                  </span>
-                </div>
-                
-                <div className="border-t border-gray-200 pt-4 flex justify-between text-lg font-semibold">
-                  <span>Total</span>
-                  <span>₹{total.toLocaleString()}</span>
-                </div>
-                
-                <button
-                  className="w-full bg-rose-600 hover:bg-rose-700 text-white py-3 px-6 rounded-lg font-medium mt-4 transition-colors"
-                  onClick={() => alert('Proceeding to checkout')}
+
+                <Link
+                  to="/checkout"
+                  className="block w-full mt-6 bg-rose-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-rose-700 transition-colors flex items-center justify-center gap-2"
                 >
                   Proceed to Checkout
-                </button>
-                
-                <p className="text-sm text-gray-500 mt-4 text-center">
-                  or{' '}
-                  <Link to="/shop" className="text-rose-600 hover:underline">
-                    continue shopping
+                  <ArrowRight size={18} />
+                </Link>
+
+                <div className="mt-6 text-sm text-center text-gray-500">
+                  <p>or</p>
+                  <Link
+                    to="/shop"
+                    className="text-rose-600 hover:text-rose-700 font-medium mt-2 inline-block"
+                  >
+                    Continue Shopping
                   </Link>
+                </div>
+              </div>
+
+              <div className="mt-6 bg-rose-50 p-4 rounded-lg">
+                <h3 className="font-medium text-rose-800 mb-2">Free Shipping</h3>
+                <p className="text-sm text-rose-700">
+                  {subtotal >= 999
+                    ? 'You qualify for free shipping!'
+                    : `Add ₹${999 - subtotal} more to get free shipping`}
                 </p>
               </div>
             </div>
-            
-            <div className="mt-6 bg-rose-50 p-4 rounded-lg">
-              <h3 className="font-medium text-rose-800 mb-2">Free Shipping</h3>
-              <p className="text-sm text-rose-700">
-                {subtotal >= 999
-                  ? 'You qualify for free shipping!'
-                  : `Add ₹${999 - subtotal} more to get free shipping`}
-              </p>
-            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default Cart;
+        )}
+      </div>
+    );
+  };
+  
+  export default Cart;

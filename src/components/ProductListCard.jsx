@@ -1,6 +1,6 @@
 import { Heart, ShoppingCart } from 'lucide-react';
 
-export const ProductListCard = ({ product, onAddToCart, onAddToWishlist, onNavigate }) => {
+export const ProductListCard = ({ product, onAddToCart, onAddToWishlist, onNavigate, isWishlisted = false }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer">
       <div className="flex">
@@ -28,7 +28,10 @@ export const ProductListCard = ({ product, onAddToCart, onAddToWishlist, onNavig
               onClick={() => onAddToWishlist(product)}
               className="p-2 rounded-full hover:bg-gray-100 transition ml-4"
             >
-              <Heart size={20} className="text-gray-600" />
+              <Heart 
+                size={20} 
+                className={isWishlisted ? 'text-rose-500 fill-current' : 'text-gray-600'} 
+              />
             </button>
           </div>
           

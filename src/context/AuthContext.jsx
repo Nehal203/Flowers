@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       const userSession = {
         user: foundUser,
         access_token: 'mock-token-' + Date.now(),
-        expires_at: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
+        expires_at: Date.now() + (24 * 60 * 60 * 1000) 
       };
       
       setUser(foundUser);
@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
     const userSession = {
       user: newUser,
       access_token: 'mock-token-' + Date.now(),
-      expires_at: Date.now() + (24 * 60 * 60 * 1000) // 24 hours
+      expires_at: Date.now() + (24 * 60 * 60 * 1000)
     };
     
     setUser(newUser);

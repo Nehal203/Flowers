@@ -50,8 +50,6 @@ const About = () => {
         },
     ];
 
-
-
     return (
         <div className="font-sans">
             <div className="relative bg-cover bg-center h-96 flex items-center justify-center" style={{ backgroundImage: 'url("https://websitedemos.net/flower-shop-04/wp-content/uploads/sites/1414/2023/10/about-hero-bg.jpg")' }}>

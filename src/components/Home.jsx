@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const Home = ({ onNavigate }) => {
   const { addToCart } = useCart();
-  
+
   const handleAddToCart = (product) => {
     addToCart(product, 1);
     toast.success(`${product.name} added to cart!`, {
@@ -131,31 +131,32 @@ export const Home = ({ onNavigate }) => {
     },
     {
       id: '3',
-      name: 'Mixed Bouquets',
-      slug: 'mixed-bouquets',
-      image_url: 'https://cdn.bloomsflora.com/uploads/product/flowers_n_fruits/1687421373_13140.png',
-      description: 'Colorful mixed flower arrangements'
-    },
-    {
-      id: '4',
       name: 'Orchids',
       slug: 'orchids',
-      image_url: 'https://rukminim2.flixcart.com/image/480/640/xif0q/plant-sapling/8/x/e/perennial-no-yes-exotic-orchid-indoor-live-flower-plant-pack-of-original-imaggxhczk9yn7bh.jpeg?q=90',
+      image_url: 'https://cdn3.1800flowers.com/wcsstore/Flowers/images/catalog/146802mbhv1wc2x.jpg',
       description: 'Exotic orchid plants'
     },
     {
+      id: '4',
+      name: 'Carnations',
+      slug: 'carnations',
+      image_url: 'https://m.media-amazon.com/images/I/51RhKoKauFL._AC_UF1000,1000_QL80_.jpg',
+      description: 'Beautiful carnation flowers'
+    },
+    
+    {
       id: '5',
-      name: 'Seasonal',
-      slug: 'seasonal',
-      image_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeuLI5VuxNV2iJRCutPtbQ6vngQLw4-QaTHg&s',
-      description: 'Seasonal flower collections'
+      name: 'Chocolates',
+      slug: 'chocolates',
+      image_url: 'https://m.media-amazon.com/images/I/71BisyFDAxL._AC_UF1000,1000_QL80_.jpg',
+      description: 'Delicious chocolate bouquets'
     },
     {
       id: '6',
-      name: 'Wedding',
-      slug: 'wedding',
-      image_url: 'https://abia.com.au/abia-admin/ckfinder/userfiles/images/complete-guide-to-wedding-flowers-Willow-Bud-Perwillowen-photo-@trentandjessie.webp',
-      description: 'Special wedding arrangements'
+      name: 'Gerberas',
+      slug: 'gerberas',
+      image_url: 'https://www.flowersacrossindia.com/cdn/shop/products/MGDHD20170149.jpg?v=1533023558',
+      description: 'Bright and cheerful gerbera daisies'
     }
   ];
 
@@ -191,7 +192,7 @@ export const Home = ({ onNavigate }) => {
               Fresh blooms delivered to your doorstep. Make every moment special with our handpicked collection.
             </p>
             <button
-              onClick={() => onNavigate('/')}
+              onClick={() => onNavigate('/shop')}
               className="bg-rose-600 hover:bg-rose-700 text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center gap-2 transition-all hover:scale-105"
             >
               Shop Now
@@ -244,6 +245,7 @@ export const Home = ({ onNavigate }) => {
                 <div key={i} className="bg-gray-200 rounded-lg h-48 animate-pulse" />
               ))}
             </div>
+            
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               {categories.map((category) => (
@@ -314,7 +316,7 @@ export const Home = ({ onNavigate }) => {
           backgroundImage: 'url(/images/sub.png)',
         }}
       >
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/70" />
         <div className="relative container mx-auto px-4 text-center text-white">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Subscribe to Our Newsletter
@@ -338,7 +340,7 @@ export const Home = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className='mb-12'> 
+      {/* <section className='mb-12'> 
           <div> 
             <div>
               <div>
@@ -350,7 +352,7 @@ export const Home = ({ onNavigate }) => {
               </div>
             </div>
           </div>
-      </section>
+      </section> */}
     </div>
   );
 };
