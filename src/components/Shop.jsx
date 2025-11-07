@@ -13,11 +13,11 @@ import React from 'react';
 export const Shop = ({ onNavigate, categorySlug }) => {
     const { cart, addToCart } = useCart();
     const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-    
+
     const isProductInCart = useCallback((productId) => {
         return cart.some(item => item.product.id === productId);
     }, [cart]);
-    
+
     const handleAddToCart = (product) => {
         addToCart(product, 1);
         toast.success(`${product.name} added to cart!`, {
@@ -29,7 +29,7 @@ export const Shop = ({ onNavigate, categorySlug }) => {
             draggable: true,
         });
     };
-    
+
     const handleWishlist = (product) => {
         if (isInWishlist(product.id)) {
             removeFromWishlist(product.id);
@@ -54,26 +54,26 @@ export const Shop = ({ onNavigate, categorySlug }) => {
         { id: 'carnations', name: 'Carnations', slug: 'carnations' },
         { id: 'chocolates', name: 'Chocolates Bouquet', slug: 'chocolates' },
         { id: 'gerberas', name: 'Gerberas', slug: 'gerberas' }
-        
+
     ]);
     const [selectedCategory, setSelectedCategory] = useState('all');
-    
+
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const categoryFromUrl = urlParams.get('category');
-        
+
         const savedCategory = localStorage.getItem('selectedCategory');
-        
+
         const initialCategory = categoryFromUrl || savedCategory || 'all';
         setSelectedCategory(initialCategory);
-        
+
         localStorage.setItem('selectedCategory', initialCategory);
     }, []);
-    
+
     const handleCategorySelect = (categorySlug) => {
         setSelectedCategory(categorySlug);
         localStorage.setItem('selectedCategory', categorySlug);
-        
+
         const url = new URL(window.location);
         url.searchParams.set('category', categorySlug);
         window.history.pushState({}, '', url);
@@ -107,19 +107,19 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                 query = query.eq('category_slug', selectedCategory);
             }
             const { data, error } = await query;
-            
+
             if (error) throw error;
-            
+
             if (data && data.length > 0) {
                 setProducts(data);
                 return;
             }
-            
+
             console.log('No products found in Supabase, using sample data');
             const filtered = selectedCategory && selectedCategory !== 'all'
                 ? sampleProducts.filter(p => p.category_slug && p.category_slug.toLowerCase() === selectedCategory.toLowerCase())
                 : sampleProducts;
-                
+
             setProducts(filtered);
 
             if (sortBy === 'price_low') {
@@ -145,32 +145,32 @@ export const Shop = ({ onNavigate, categorySlug }) => {
 
 
     const productsToDisplay = loading ? [] : (products.length > 0 ? products : sampleProducts);
-    
+
     const filteredProducts = React.useMemo(() => {
         if (selectedCategory === 'all' || !selectedCategory) {
             return productsToDisplay;
         }
-        
+
         return productsToDisplay.filter(product => {
             if (product.category_slug && product.category_slug.toLowerCase() === selectedCategory.toLowerCase()) {
                 return true;
             }
-            
+
             if (product.category && product.category.toLowerCase() === selectedCategory.toLowerCase()) {
                 return true;
             }
-            
+
             if (product.categories) {
                 return product.categories.some(cat => {
                     return (cat.slug && cat.slug.toLowerCase() === selectedCategory.toLowerCase()) ||
-                           (cat.name && cat.name.toLowerCase() === selectedCategory.toLowerCase());
+                        (cat.name && cat.name.toLowerCase() === selectedCategory.toLowerCase());
                 });
             }
-            
+
             return false;
         });
     }, [selectedCategory, productsToDisplay]);
-    
+
     console.log('Selected category:', selectedCategory);
     console.log('Total products:', productsToDisplay.length);
     console.log('Filtered products:', filteredProducts.length);
@@ -179,32 +179,44 @@ export const Shop = ({ onNavigate, categorySlug }) => {
     });
 
     const displayProducts = filteredProducts.map(product => {
-      const category = product.category || product.categories?.name || 
-                     (categories.find(cat => cat.slug === product.category_slug)?.name || 'Flowers');
-      
-      const categorySlug = product.category_slug || 
-                         (product.category ? product.category.toLowerCase().replace(/\s+/g, '-') : 'flowers');
-      
-      return {
-        ...product,
-        image_url: product.image_url || product.image,
-        slug: product.slug || product.id.toString(),
-        name: product.name || 'Unnamed Product',
-        price: product.price || 0,
-        discount_price: product.discount_price || product.original_price || null,
-        category: category,
-        category_slug: categorySlug
-      };
+        const category = product.category || product.categories?.name ||
+            (categories.find(cat => cat.slug === product.category_slug)?.name || 'Flowers');
+
+        const categorySlug = product.category_slug ||
+            (product.category ? product.category.toLowerCase().replace(/\s+/g, '-') : 'flowers');
+
+        return {
+            ...product,
+            image_url: product.image_url || product.image,
+            slug: product.slug || product.id.toString(),
+            name: product.name || 'Unnamed Product',
+            price: product.price || 0,
+            discount_price: product.discount_price || product.original_price || null,
+            category: category,
+            category_slug: categorySlug
+        };
     });
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <div className="bg-gradient-to-r from-rose-600 to-pink-600 text-white py-16">
-                <div className="container mx-auto px-4">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Shop Flowers</h1>
-                    <p className="text-xl text-rose-100">
-                        Discover our beautiful collection of fresh flowers
-                    </p>
+            <div
+                className="relative h-[400px] bg-cover bg-center flex items-center justify-center text-center"
+                style={{
+                    backgroundImage: 'url(https://websitedemos.net/florist-04/wp-content/uploads/sites/346/2019/03/bg-07-free-img.jpg)',
+                    backgroundPosition: 'center 30%',
+                    backgroundSize: 'cover',
+                    marginTop: '-80px',
+                    paddingTop: '80px',
+                }}
+            >
+                <div className="absolute inset-0 bg-black/50"></div>
+                <div className="relative container mx-auto px-4 ">
+                    <h1 className="text-md mb-4 text-white">SHOP FLOWERS</h1>
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">Discover our beautiful collection of fresh flowers</h1>
+                    {/* <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white">Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.</p> */}
+                    {/* <Link to="/shop" className="bg-white text-pink-600 px-10 py-4 rounded-full font-semibold hover:bg-pink-100 transition-all hover:scale-105 inline-block text-lg">
+                        Shop Now
+                    </Link> */}
                 </div>
             </div>
 
@@ -216,7 +228,7 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                                 <Filter size={20} className="text-rose-600" />
                                 <h2 className="text-lg font-semibold">Filters</h2>
                             </div>
- 
+
                             <div className="mb-6">
                                 <h3 className="font-semibold mb-3 text-gray-800">Categories</h3>
                                 <div className="space-y-2">
@@ -300,14 +312,13 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                                 : "grid grid-cols-1 gap-6"}>
                                 {displayProducts.map((product) => (
                                     viewMode === 'grid' ? (
-<div key={product.id} onClick={() => handleProductClick('product', product.slug)}>
-                                            <ProductGridCard
-                                                product={product}
-                                                onAddToCart={handleAddToCart}
-                                                onAddToWishlist={handleWishlist}
-                                                isWishlisted={isInWishlist(product.id)}
-                                            />
-                                        </div>
+                                        <ProductGridCard
+                                            key={product.id}
+                                            product={product}
+                                            onAddToCart={handleAddToCart}
+                                            onAddToWishlist={handleWishlist}
+                                            isWishlisted={isInWishlist(product.id)}
+                                        />
                                     ) : (
                                         <ProductListCard
                                             key={product.id}

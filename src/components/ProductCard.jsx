@@ -1,7 +1,9 @@
 import { Heart, ShoppingCart } from 'lucide-react';
 import { useWishlist } from '../contexts/WishlistContext';
+import { useNavigate } from 'react-router-dom';
 
-export const ProductCard = ({ product, onNavigate, onAddToCart }) => {
+export const ProductCard = ({ product, onAddToCart }) => {
+  const navigate = useNavigate();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const isWishlisted = isInWishlist(product.id);
 
@@ -26,13 +28,15 @@ export const ProductCard = ({ product, onNavigate, onAddToCart }) => {
   };
 
   const handleCardClick = (e) => {
-    e.preventDefault();
+    if (e.target.closest('button')) {
+      return; 
+    }
     const formattedSlug = product.slug
       .toString()
       .toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^\w-]+/g, '');
-    onNavigate('product', formattedSlug);
+    navigate(`/product/${formattedSlug}`);
   };
 
   const finalPrice = product.discount_price || product.price;

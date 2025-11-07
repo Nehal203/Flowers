@@ -52,19 +52,28 @@ const About = () => {
 
     return (
         <div className="font-sans">
-            <div className="relative bg-cover bg-center h-96 flex items-center justify-center" style={{ backgroundImage: 'url("https://websitedemos.net/flower-shop-04/wp-content/uploads/sites/1414/2023/10/about-hero-bg.jpg")' }}>
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-                <div className="text-center z-10 text-white px-4">
-                    <h1 className="text-md mb-4">ABOUT US</h1>
-                    <h1 className="text-5xl font-bold mb-4">Embarking on the Path to <br /> Our Dreams</h1>
-                    <p className="text-md mb-4 max-w-2xl mx-auto">Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.</p>
-                    <Link to="/shop" className="bg-white text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-100 transition duration-300 inline-block">
+            <div
+                className="relative h-[700px] bg-cover bg-center flex items-center justify-center text-center"
+                style={{
+                    backgroundImage: 'url(https://websitedemos.net/flower-shop-04/wp-content/uploads/sites/1414/2023/10/about-hero-bg.jpg)',
+                    backgroundPosition: 'center 30%',
+                    backgroundSize: 'cover',
+                    marginTop: '-80px',
+                    paddingTop: '80px',
+                }}
+            >
+                <div className="absolute inset-0 bg-black/50"></div>
+                <div className="relative container mx-auto px-4 ">
+                    <h1 className="text-md mb-4 text-white">ABOUT US</h1>
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">Embarking on the Path to <br /> Our Dreams</h1>
+                    <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white">Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.</p>
+                    {/* <Link to="/shop" className="bg-white text-pink-600 px-10 py-4 rounded-full font-semibold hover:bg-pink-100 transition-all hover:scale-105 inline-block text-lg">
                         Shop Now
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
 
-            <section className="bg-white py-16 px-6 md:px-16">
+            <section className="bg-white py-16 px-6 md:px-16 mt-[-100px] relative z-0">
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <div className="flex space-x-6 justify-center">
                         <img

@@ -141,7 +141,6 @@ const Wishlist = () => {
                         className="flex-1 sm:flex-none border border-gray-300 hover:bg-rose-50 hover:border-rose-200 text-rose-600 px-2 py-2 rounded-md text-sm font-medium transition-colors flex items-center justify-center gap-2"
                       >
                         <X size={16} />
-                        {/* Remove */}
                       </button>
                     </div>
                   </div>

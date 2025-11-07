@@ -1,18 +1,38 @@
+import { useState } from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
 
 export const ProductListCard = ({ product, onAddToCart, onAddToWishlist, onNavigate, isWishlisted = false }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const hasMultipleImages = product.images && product.images.length > 1;
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition cursor-pointer">
       <div className="flex">
         <div 
-          className="w-48 flex-shrink-0"
+          className="w-48 flex-shrink-0 relative overflow-hidden"
           onClick={() => onNavigate('product', product.slug)}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          <img 
-            src={product.image} 
-            alt={product.name}
-            className="w-full h-48 object-cover"
-          />
+          <div className="relative w-full h-48">
+            <img 
+              src={product.images?.[0] || '/path/to/default-image.jpg'} 
+              alt={product.name}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${
+                isHovered && hasMultipleImages ? 'opacity-0' : 'opacity-100'
+              }`}
+            />
+
+            {hasMultipleImages && (
+              <img 
+                src={product.images[1]} 
+                alt={product.name}
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-300 ${
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            )}
+          </div>
         </div>
         <div className="p-6 flex-1">
           <div className="flex items-start justify-between mb-3">

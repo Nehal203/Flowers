@@ -1,6 +1,10 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-import { CartProvider } from "./contexts/CartContext";
-import { WishlistProvider } from "./contexts/WishlistContext";
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate, Outlet } from "react-router-dom";
+import {
+  CartProvider,
+  WishlistProvider,
+  AuthProvider,
+  useAuth
+} from "./contexts";
 import Navb from "./components/Navb";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
@@ -14,9 +18,27 @@ import { useEffect } from "react";
 import Checkout from "./components/Checkout";
 import Login from "./components/Login";
 import Register from "./components/register";
+import ForgotPassword from "./components/ForgotPassword";
+import OrderConfirmation from "./components/OrderConfirmation";
+
+import AdminDashboard from "./pages/Admin/Dashboard";
+import DashboardHome from "./pages/Admin/DashboardHome";
+import AdminLogin from "./pages/Admin/Login";
+
+const AdminLayout = () => {
+  const { isAuthenticated } = useAuth();
+  const isAdmin = localStorage.getItem('adminToken');
+
+  if (!isAdmin) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  return <AdminDashboard />;
+};
 
 function AppContent() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const handleNavigation = (typeOrPath, slug) => {
     if (typeOrPath === 'product' && slug) {
@@ -38,12 +60,50 @@ function AppContent() {
           <Route path="/shop" element={<Shop onNavigate={handleNavigation} />} />
           <Route path="/shop/category/:categorySlug" element={<Shop />} />
           <Route path="/product/:productSlug" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+
+          <Route path="/cart" element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>
+          } />
+          <Route path="/wishlist" element={
+            <PrivateRoute>
+              <Wishlist />
+            </PrivateRoute>
+          } />
+          <Route path="/checkout" element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          } />
+          <Route path="/order-confirmation" element={
+            <PrivateRoute>
+              <OrderConfirmation />
+            </PrivateRoute>
+          } />
+
+          <Route path="/login" element={
+            <GuestRoute>
+              <Login />
+            </GuestRoute>
+          } />
+          <Route path="/register" element={
+            <GuestRoute>
+              <Register />
+            </GuestRoute>
+          } />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
+          <Route path="/admin" element={
+            <AdminLayout />
+          }>
+            <Route index element={<DashboardHome />} />
+          </Route>
+
+          <Route path="/admin/login" element={
+            <AdminLogin />
+          } />
         </Routes>
       </main>
       <Footer />
@@ -51,14 +111,25 @@ function AppContent() {
   );
 }
 
+const PrivateRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/login" />;
+};
+const GuestRoute = ({ children }) => {
+  const { user } = useAuth();
+  return !user ? children : <Navigate to="/" />;
+};
+
 function App() {
   return (
     <Router>
-      <CartProvider>
-        <WishlistProvider>
-          <AppContent />
-        </WishlistProvider>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <AppContent />
+          </WishlistProvider>
+        </CartProvider>
+      </AuthProvider>
     </Router>
   );
 }

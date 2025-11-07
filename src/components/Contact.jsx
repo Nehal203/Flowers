@@ -29,10 +29,24 @@ export const Contact = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <div className="bg-gradient-to-r from-rose-600 to-pink-600 text-white py-16">
-                <div className="container mx-auto px-4">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-                    <p className="text-xl text-rose-100">We'd love to hear from you</p>
+            <div
+                className="relative h-[400px] bg-cover bg-center flex items-center justify-center text-center"
+                style={{
+                    backgroundImage: 'url(https://websitedemos.net/florist-04/wp-content/uploads/sites/346/2019/03/bg-09-free-img.jpg)',
+                    backgroundPosition: 'center 30%',
+                    backgroundSize: 'cover',
+                    marginTop: '-80px',
+                    paddingTop: '80px',
+                }}
+            >
+                <div className="absolute inset-0 bg-black/50"></div>
+                <div className="relative container mx-auto px-4 ">
+                    <h1 className="text-md mb-4 text-white">CONTACT US</h1>
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">We'd love to hear from you</h1>
+                    {/* <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white">Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.</p> */}
+                    {/* <Link to="/shop" className="bg-white text-pink-600 px-10 py-4 rounded-full font-semibold hover:bg-pink-100 transition-all hover:scale-105 inline-block text-lg">
+                        Shop Now
+                    </Link> */}
                 </div>
             </div>
 
