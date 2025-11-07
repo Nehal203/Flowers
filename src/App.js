@@ -24,6 +24,7 @@ import OrderConfirmation from "./components/OrderConfirmation";
 import AdminDashboard from "./pages/Admin/Dashboard";
 import DashboardHome from "./pages/Admin/DashboardHome";
 import AdminLogin from "./pages/Admin/Login";
+import Products from "./pages/Admin/Products";
 
 const AdminLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -34,6 +35,7 @@ const AdminLayout = () => {
   }
 
   return <AdminDashboard />;
+  
 };
 
 function AppContent() {
@@ -103,6 +105,9 @@ function AppContent() {
 
           <Route path="/admin/login" element={
             <AdminLogin />
+          } />
+          <Route path="/admin/products" element={
+            <Products />
           } />
         </Routes>
       </main>

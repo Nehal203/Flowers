@@ -19,13 +19,12 @@ const AdminDashboard = () => {
           <NavItem to="/admin/users" icon={<FiUsers />} text="Users" />
           <NavItem to="/admin/orders" icon={<FiBarChart2 />} text="Orders" />
           <NavItem to="/admin/settings" icon={<FiSettings />} text="Settings" />
-          <button
-            onClick={handleLogout}
-            className="flex items-center w-full px-6 py-3 text-left text-gray-300 hover:bg-white hover:text-black transition-colors hover:text-bold"
+          <Link to="/admin/login" onClick={handleLogout}
+            className="flex items-center w-full px-6 py-3 text-left text-gray-300 hover:bg-white hover:text-black transition-colors hover:font-bold"
           >
             <FiLogOut className="mr-3" />
             Logout
-          </button>
+          </Link>
         </nav>
       </div>
 
@@ -53,7 +52,7 @@ const AdminDashboard = () => {
 const NavItem = ({ to, icon, text }) => (
   <Link
     to={to}
-    className="flex items-center px-6 py-3 text-gray-300 hover:bg-white hover:text-black transition-colors  hover:text-bold"
+    className="flex items-center px-6 py-3 text-gray-300 hover:bg-white hover:text-black transition-colors  hover:font-bold"
   >
     <span className="mr-3">{icon}</span>
     {text}
