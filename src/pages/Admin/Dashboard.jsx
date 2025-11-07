@@ -16,7 +16,6 @@ const AdminDashboard = () => {
         <nav className="mt-8">
           <NavItem to="/admin" icon={<FiHome />} text="Dashboard" />
           <NavItem to="/admin/products" icon={<FiShoppingBag />} text="Products" />
-          <NavItem to="/admin/users" icon={<FiUsers />} text="Users" />
           <NavItem to="/admin/orders" icon={<FiBarChart2 />} text="Orders" />
           <NavItem to="/admin/settings" icon={<FiSettings />} text="Settings" />
           <Link to="/admin/login" onClick={handleLogout}
