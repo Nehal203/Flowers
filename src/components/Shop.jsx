@@ -9,6 +9,10 @@ import { useWishlist } from '../contexts/WishlistContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
+<<<<<<< HEAD
+=======
+import { motion } from 'framer-motion';
+>>>>>>> 6e4d586 (any message)
 
 export const Shop = ({ onNavigate, categorySlug }) => {
     const { cart, addToCart } = useCart();
@@ -197,8 +201,16 @@ export const Shop = ({ onNavigate, categorySlug }) => {
         };
     });
 
+<<<<<<< HEAD
     return (
         <div className="min-h-screen bg-gray-50">
+=======
+    const fadeUp = { hidden: { y: 16, opacity: 0 }, show: { y: 0, opacity: 1, transition: { duration: 0.5 } } };
+    const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+
+    return (
+        <motion.div className="min-h-screen bg-gray-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+>>>>>>> 6e4d586 (any message)
             <div
                 className="relative h-[400px] bg-cover bg-center flex items-center justify-center text-center"
                 style={{
@@ -210,20 +222,34 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                 }}
             >
                 <div className="absolute inset-0 bg-black/50"></div>
+<<<<<<< HEAD
                 <div className="relative container mx-auto px-4 ">
                     <h1 className="text-md mb-4 text-white">SHOP FLOWERS</h1>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">Discover our beautiful collection of fresh flowers</h1>
+=======
+                <motion.div className="relative container mx-auto px-4 " variants={container} initial="hidden" animate="show">
+                    <motion.h1 className="text-md mb-4 text-white" variants={fadeUp}>SHOP FLOWERS</motion.h1>
+                    <motion.h1 className="text-5xl md:text-7xl font-bold mb-6 text-white" variants={fadeUp}>Discover our beautiful collection of fresh flowers</motion.h1>
+>>>>>>> 6e4d586 (any message)
                     {/* <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white">Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.</p> */}
                     {/* <Link to="/shop" className="bg-white text-pink-600 px-10 py-4 rounded-full font-semibold hover:bg-pink-100 transition-all hover:scale-105 inline-block text-lg">
                         Shop Now
                     </Link> */}
+<<<<<<< HEAD
                 </div>
+=======
+                </motion.div>
+>>>>>>> 6e4d586 (any message)
             </div>
 
             <div className="container mx-auto px-4 py-8">
                 <div className="flex flex-col md:flex-row gap-8">
                     <aside className="md:w-64 flex-shrink-0">
+<<<<<<< HEAD
                         <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
+=======
+                        <motion.div className="bg-white rounded-lg shadow-md p-6 sticky top-24" initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }}>
+>>>>>>> 6e4d586 (any message)
                             <div className="flex items-center gap-2 mb-6">
                                 <Filter size={20} className="text-rose-600" />
                                 <h2 className="text-lg font-semibold">Filters</h2>
@@ -270,6 +296,7 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                                     <option value="name">Name: A to Z</option>
                                 </select>
                             </div>
+<<<<<<< HEAD
                         </div>
                     </aside>
 
@@ -278,6 +305,16 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                             <p className="text-gray-600">
                                 {loading ? 'Loading...' : `${displayProducts.length} products found`}
                             </p>
+=======
+                        </motion.div>
+                    </aside>
+
+                    <main className="flex-1">
+                        <motion.div className="flex items-center justify-between mb-6" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+                            <motion.p className="text-gray-600" variants={fadeUp}>
+                                {loading ? 'Loading...' : `${displayProducts.length} products found`}
+                            </motion.p>
+>>>>>>> 6e4d586 (any message)
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={() => setViewMode('grid')}
@@ -298,7 +335,11 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                                     <List size={20} />
                                 </button>
                             </div>
+<<<<<<< HEAD
                         </div>
+=======
+                        </motion.div>
+>>>>>>> 6e4d586 (any message)
 
                         {loading ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -307,6 +348,7 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                                 ))}
                             </div>
                         ) : (
+<<<<<<< HEAD
                             <div className={viewMode === 'grid'
                                 ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                                 : "grid grid-cols-1 gap-6"}>
@@ -332,11 +374,44 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                                     )
                                 ))}
                             </div>
+=======
+                            <motion.div className={viewMode === 'grid'
+                                ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                                : "grid grid-cols-1 gap-6"} variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }}>
+                                {displayProducts.map((product) => (
+                                    viewMode === 'grid' ? (
+                                        <motion.div key={product.id} variants={fadeUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                                            <ProductGridCard
+                                                product={product}
+                                                onAddToCart={handleAddToCart}
+                                                onAddToWishlist={handleWishlist}
+                                                isWishlisted={isInWishlist(product.id)}
+                                            />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div key={product.id} variants={fadeUp} whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
+                                            <ProductListCard
+                                                product={product}
+                                                onAddToCart={handleAddToCart}
+                                                isInCart={isProductInCart(product.id)}
+                                                onAddToWishlist={handleWishlist}
+                                                onNavigate={handleProductClick}
+                                                isWishlisted={isInWishlist(product.id)}
+                                            />
+                                        </motion.div>
+                                    )
+                                ))}
+                            </motion.div>
+>>>>>>> 6e4d586 (any message)
                         )}
                     </main>
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
+=======
+        </motion.div>
+>>>>>>> 6e4d586 (any message)
     );
 };
 

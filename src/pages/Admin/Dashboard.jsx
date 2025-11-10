@@ -17,6 +17,10 @@ const AdminDashboard = () => {
           <NavItem to="/admin" icon={<FiHome />} text="Dashboard" />
           <NavItem to="/admin/products" icon={<FiShoppingBag />} text="Products" />
           <NavItem to="/admin/orders" icon={<FiBarChart2 />} text="Orders" />
+<<<<<<< HEAD
+=======
+          <NavItem to="/admin/customers" icon={<FiUsers />} text="Customer Management" />
+>>>>>>> 6e4d586 (any message)
           <NavItem to="/admin/settings" icon={<FiSettings />} text="Settings" />
           <Link to="/admin/login" onClick={handleLogout}
             className="flex items-center w-full px-6 py-3 text-left text-gray-300 hover:bg-white hover:text-black transition-colors hover:font-bold"

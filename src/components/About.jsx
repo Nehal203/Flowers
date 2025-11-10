@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useInView, animate } from 'framer-motion';
 
 const About = () => {
 
@@ -50,8 +51,53 @@ const About = () => {
         },
     ];
 
+    const fadeUp = { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1, transition: { duration: 0.6 } } };
+    const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
+
+    const CountUp = ({ to, duration = 1.6, suffix = '' }) => {
+        const ref = React.useRef(null);
+        const isInView = useInView(ref, { once: true, amount: 0.4 });
+        const [value, setValue] = React.useState(0);
+        React.useEffect(() => {
+            if (isInView) {
+                const controls = animate(0, to, {
+                    duration,
+                    onUpdate: (v) => setValue(Math.floor(v)),
+                });
+                return () => controls.stop();
+            }
+        }, [isInView, to, duration]);
+        return (
+            <span ref={ref}>{value}{suffix}</span>
+        );
+    };
+
     return (
-        <div className="font-sans">
+        <motion.div className="font-sans" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+    const fadeUp = { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1, transition: { duration: 0.6 } } };
+    const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
+
+    const CountUp = ({ to, duration = 1.6, suffix = '' }) => {
+        const ref = React.useRef(null);
+        const isInView = useInView(ref, { once: true, amount: 0.4 });
+        const [value, setValue] = React.useState(0);
+        React.useEffect(() => {
+            if (isInView) {
+                const controls = animate(0, to, {
+                    duration,
+                    onUpdate: (v) => setValue(Math.floor(v)),
+                });
+                return () => controls.stop();
+            }
+        }, [isInView, to, duration]);
+        return (
+            <span ref={ref}>{value}{suffix}</span>
+        );
+    };
+
+    return (
+        <motion.div className="font-sans" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+>>>>>>> 6e4d586 (any message)
             <div
                 className="relative h-[700px] bg-cover bg-center flex items-center justify-center text-center"
                 style={{
@@ -63,120 +109,124 @@ const About = () => {
                 }}
             >
                 <div className="absolute inset-0 bg-black/50"></div>
-                <div className="relative container mx-auto px-4 ">
-                    <h1 className="text-md mb-4 text-white">ABOUT US</h1>
-                    <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">Embarking on the Path to <br /> Our Dreams</h1>
-                    <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white">Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.</p>
-                    {/* <Link to="/shop" className="bg-white text-pink-600 px-10 py-4 rounded-full font-semibold hover:bg-pink-100 transition-all hover:scale-105 inline-block text-lg">
-                        Shop Now
-                    </Link> */}
-                </div>
+<<<<<<< HEAD
+                <motion.div className="relative container mx-auto px-4" variants={container} initial="hidden" animate="show">
+                    <motion.h1 className="text-md mb-4 text-white" variants={fadeUp}>ABOUT US</motion.h1>
+                    <motion.h1 className="text-5xl md:text-7xl font-bold mb-6 text-white" variants={fadeUp}>
+                        Embarking on the Path to <br /> Our Dreams
+                    </motion.h1>
+                    <motion.p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white" variants={fadeUp}>
+                        Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.
+                    </motion.p>
+                </motion.div>
             </div>
 
             <section className="bg-white py-16 px-6 md:px-16 mt-[-100px] relative z-0">
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <div className="flex space-x-6 justify-center">
-                        <img
+                        <motion.img
                             src="https://websitedemos.net/flower-shop-04/wp-content/uploads/sites/1414/2023/10/about-01.jpg"
                             alt="Flowers on table"
                             className="w-40 h-56 md:w-56 md:h-80 object-cover rounded-[3rem]"
+                            initial={{ y: 30, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.6 }}
                         />
-                        <img
+                        <motion.img
                             src="https://websitedemos.net/flower-shop-04/wp-content/uploads/sites/1414/2023/10/about-02.jpg"
                             alt="Florist arranging flowers"
                             className="w-40 h-64 md:w-56 md:h-96 object-cover rounded-[3rem]"
+                            initial={{ y: 50, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
                         />
                     </div>
 
-                    <div>
-                        <p className="text-sm uppercase tracking-wider text-rose-500 font-semibold mb-2">
+                    <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+                        <motion.p className="text-sm uppercase tracking-wider text-rose-500 font-semibold mb-2" variants={fadeUp}>
                             About Florist
-                        </p>
-                        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4 leading-snug">
+                        </motion.p>
+                        <motion.h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4 leading-snug" variants={fadeUp}>
                             Blossoming Your Special Moments with Nature&apos;s Finest
-                        </h2>
-                        <p className="text-gray-600 leading-relaxed mb-6">
+                        </motion.h2>
+                        <motion.p className="text-gray-600 leading-relaxed mb-6" variants={fadeUp}>
                             Welcome to the heart of Florist, where our love for flowers blooms into exquisite arrangements that celebrate life's most cherished moments. In this corner of the internet, we invite you to discover our passion, our team, and the essence of what makes Florist a blooming success. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                        </p>
-
-                        {/* <div className="flex space-x-4">
-              <Link to="/shop" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md font-medium transition">
-                Shop Now
-              </Link>
-              <Link to="/contact" className="border border-gray-300 hover:bg-gray-100 text-gray-800 px-5 py-2 rounded-md font-medium transition">
-                Contact Us
-              </Link>
-            </div> */}
-                    </div>
+                        </motion.p>
+                    </motion.div>
                 </div>
             </section>
 
             <section className="bg-[#1A0000] text-white py-20 px-6 md:px-16">
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <p className="text-sm uppercase tracking-wider text-rose-400 font-semibold mb-2">
+                    <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+                        <motion.p className="text-sm uppercase tracking-wider text-rose-400 font-semibold mb-2" variants={fadeUp}>
                             Our Story
-                        </p>
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-snug">
+                        </motion.p>
+                        <motion.h2 className="text-3xl md:text-4xl font-bold mb-4 leading-snug" variants={fadeUp}>
                             A Journey from Passion to Florist
-                        </h2>
-                        <p className="text-gray-300 leading-relaxed mb-4">
+                        </motion.h2>
+                        <motion.p className="text-gray-300 leading-relaxed mb-4" variants={fadeUp}>
                             Our journey began with a seed of passion that blossomed into a flourishing
                             business. Allow us to share the story of our founder's deep-rooted love for
                             flowers and how it led to the creation of your trusted floral destination.
                             It is a long established fact that a reader will be distracted by the
                             readable content of a page when looking at its layout.
-                        </p>
-                        <p className="text-gray-300 leading-relaxed">
+                        </motion.p>
+                        <motion.p className="text-gray-300 leading-relaxed" variants={fadeUp}>
                             Explore the tale of dedication, creativity, and a vision to spread the joy
                             of nature's beauty through the art of floral design. Discover the moments
                             that shaped our founder's path and paved the way for Florist to become a
                             symbol of floral excellence.
-                        </p>
-                    </div>
+                        </motion.p>
+                    </motion.div>
 
                     <div className="flex justify-center">
-                        <img
+                        <motion.img
                             src="https://websitedemos.net/flower-shop-04/wp-content/uploads/sites/1414/2023/10/our-story.jpg"
                             alt="Florist with flowers"
                             className="w-80 h-96 md:w-[420px] md:h-[520px] object-cover rounded-[3rem]"
+                            initial={{ x: 40, opacity: 0 }}
+                            whileInView={{ x: 0, opacity: 1 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.6 }}
                         />
                     </div>
                 </div>
-
                 <div className="border-t border-b border-gray-700 mt-16 py-10">
                     <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 text-center gap-8">
-                        <div>
-                            <h3 className="text-3xl font-bold text-rose-300">500k+</h3>
+                        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+                            <h3 className="text-3xl font-bold text-rose-300"><CountUp to={500} suffix="k+" /></h3>
                             <p className="text-gray-400 text-sm mt-1">Happy Customers</p>
-                        </div>
-                        <div>
-                            <h3 className="text-3xl font-bold text-rose-300">400+</h3>
+                        </motion.div>
+                        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+                            <h3 className="text-3xl font-bold text-rose-300"><CountUp to={400} suffix="+" /></h3>
                             <p className="text-gray-400 text-sm mt-1">Products</p>
-                        </div>
-                        <div>
-                            <h3 className="text-3xl font-bold text-rose-300">43+</h3>
+                        </motion.div>
+                        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+                            <h3 className="text-3xl font-bold text-rose-300"><CountUp to={43} suffix="+" /></h3>
                             <p className="text-gray-400 text-sm mt-1">Worldwide Shops</p>
-                        </div>
-                        <div>
-                            <h3 className="text-3xl font-bold text-rose-300">8+</h3>
+                        </motion.div>
+                        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+                            <h3 className="text-3xl font-bold text-rose-300"><CountUp to={8} suffix="+" /></h3>
                             <p className="text-gray-400 text-sm mt-1">Winning Awards</p>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
             <section className="py-16 px-6 md:px-16 bg-[#fef7f5]">
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-12">
-                        <p className="text-sm uppercase tracking-wider text-rose-500 font-semibold mb-2">Our Team</p>
-                        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">Our Dedicated Team of Enthusiasts</h2>
-                        <p className="text-black max-w-2xl mx-auto">Share some details here. This is Flexible section where you can share anything you want.</p>
-                    </div>
+                    <motion.div className="text-center mb-12" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+                        <motion.p className="text-sm uppercase tracking-wider text-rose-500 font-semibold mb-2" variants={fadeUp}>Our Team</motion.p>
+                        <motion.h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4" variants={fadeUp}>Our Dedicated Team of Enthusiasts</motion.h2>
+                        <motion.p className="text-black max-w-2xl mx-auto" variants={fadeUp}>Share some details here. This is Flexible section where you can share anything you want.</motion.p>
+                    </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {teamMembers.map((member) => (
-                            <div key={member.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <motion.div key={member.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300" initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }} whileHover={{ scale: 1.02 }}>
                                 <img
                                     src={member.image}
                                     alt={member.name}
@@ -201,12 +251,12 @@ const About = () => {
                                         <a href={member.social.instagram} className="text-gray-500 hover:text-rose-500">
                                             <span className="sr-only">Instagram</span>
                                             <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" />
+                                                <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.467.398.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.467-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a4.902 4.902 0 00-1.772-1.153 4.902 4.902 0 00-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" />
                                             </svg>
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
@@ -215,27 +265,34 @@ const About = () => {
             <section className="bg-[#1A0000] text-white py-20 px-6 md:px-16">
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <div className="flex justify-center">
-                        <img
+                        <motion.img
                             src="https://websitedemos.net/flower-shop-04/wp-content/uploads/sites/1414/2023/10/cta.jpg"
                             alt="Florist with flowers"
                             className="w-80 h-96 md:w-[420px] md:h-[520px] object-cover rounded-[3rem]"
+                            initial={{ x: -40, opacity: 0 }}
+                            whileInView={{ x: 0, opacity: 1 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.6 }}
                         />
                     </div>
-                    <div>
-                        <p className="text-sm uppercase tracking-wider text-rose-400 font-semibold mb-2">
+                    <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+                        <motion.p className="text-sm uppercase tracking-wider text-rose-400 font-semibold mb-2" variants={fadeUp}>
                             Call to action
-                        </p>
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-snug">
+                        </motion.p>
+                        <motion.h2 className="text-3xl md:text-4xl font-bold mb-4 leading-snug" variants={fadeUp}>
                             Explore Our Exquisite Floral Collections & Shop Now for the Perfect Blooms
-                        </h2>
-                        <Link to="/shop" className="bg-white text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-100 transition duration-300 inline-block">
-                            Shop Now
-                        </Link>
-                    </div>
+                        </motion.h2>
+                        <motion.div variants={fadeUp}>
+                            <Link to="/shop" className="bg-white text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-100 transition duration-300 inline-block">
+                                Shop Now
+                            </Link>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </section>
 
-        </div>
+        </motion.div>
+>>>>>>> 6e4d586 (any message)
     );
 };
 

@@ -7,9 +7,13 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { sampleProducts } from '../data/sampleProducts';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 
 
 
+=======
+import { motion } from 'framer-motion';
+>>>>>>> 6e4d586 (any message)
 
 const ProductDetail = () => {
   const { productSlug } = useParams();
@@ -201,6 +205,7 @@ const ProductDetail = () => {
     ? product.images
     : [product.image_url || product.image || 'https://via.placeholder.com/500'];
 
+<<<<<<< HEAD
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white">
@@ -212,6 +217,25 @@ const ProductDetail = () => {
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to Shop
           </button>
+=======
+  const fadeUp = { hidden: { y: 16, opacity: 0 }, show: { y: 0, opacity: 1, transition: { duration: 0.5 } } };
+  const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+
+  return (
+    <motion.div className="min-h-screen bg-gray-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+      <div className="bg-white">
+        <div className="container mx-auto px-4 py-12">
+          <motion.button
+            onClick={() => navigate(-1)}
+            className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-colors"
+            variants={fadeUp}
+            initial="hidden"
+            animate="show"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Back to Shop
+          </motion.button>
+>>>>>>> 6e4d586 (any message)
 
           {loading ? (
             <div>Loading...</div>
@@ -222,7 +246,11 @@ const ProductDetail = () => {
                   ref={imageRef}
                   className={`space-y-4 ${isSticky ? 'sticky top-24 transition-all duration-300' : ''}`}
                 >
+<<<<<<< HEAD
                   <div className="bg-white rounded-lg overflow-hidden shadow-md relative">
+=======
+                  <motion.div className="bg-white rounded-lg overflow-hidden shadow-md relative" initial={{ scale: 0.98, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.4 }}>
+>>>>>>> 6e4d586 (any message)
                     <button
                       onClick={handleWishlist}
                       className="absolute top-4 right-4 z-10 p-2 bg-white/80 rounded-full shadow-md hover:bg-white transition-colors"
@@ -234,7 +262,11 @@ const ProductDetail = () => {
                         <HeartOff className="w-6 h-6 text-gray-600" />
                       )}
                     </button>
+<<<<<<< HEAD
                     <img
+=======
+                    <motion.img
+>>>>>>> 6e4d586 (any message)
                       src={images[selectedImage]}
                       alt={product.name}
                       className="w-full h-auto object-cover"
@@ -242,15 +274,34 @@ const ProductDetail = () => {
                         e.target.onerror = null;
                         e.target.src = 'https://via.placeholder.com/100?text=Image';
                       }}
+<<<<<<< HEAD
                     />
                   </div>
                   <div className="flex space-x-2 overflow-x-auto pb-2">
                     {images.map((img, index) => (
                       <button
+=======
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      key={selectedImage}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.div>
+                  <div className="flex space-x-2 overflow-x-auto pb-2">
+                    {images.map((img, index) => (
+                      <motion.button
+>>>>>>> 6e4d586 (any message)
                         key={index}
                         onClick={() => setSelectedImage(index)}
                         className={`flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 ${selectedImage === index ? 'border-blue-500' : 'border-transparent'
                           }`}
+<<<<<<< HEAD
+=======
+                        initial={{ y: 8, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+>>>>>>> 6e4d586 (any message)
                       >
                         <img
                           src={img}
@@ -261,23 +312,39 @@ const ProductDetail = () => {
                             e.target.src = 'https://via.placeholder.com/100?text=Image';
                           }}
                         />
+<<<<<<< HEAD
                       </button>
+=======
+                      </motion.button>
+>>>>>>> 6e4d586 (any message)
                     ))}
                   </div>
                 </div>
 
                 <div className="lg:pl-8">
+<<<<<<< HEAD
                   <div className="flex items-center text-sm text-gray-500 mb-2">
+=======
+                  <motion.div className="flex items-center text-sm text-gray-500 mb-2" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+>>>>>>> 6e4d586 (any message)
                     <Link to="/"><span>Home</span></Link>
                     <ChevronRight className="w-4 h-4 mx-2" />
                     <Link to="/shop"><span>Shop</span></Link>
                     <ChevronRight className="w-4 h-4 mx-2" />
                     <span className="text-gray-400">{product.name}</span>
+<<<<<<< HEAD
                   </div>
 
                   <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
 
                   <div className="flex items-center mb-6">
+=======
+                  </motion.div>
+
+                  <motion.h1 className="text-3xl font-bold text-gray-900 mb-4" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>{product.name}</motion.h1>
+
+                  <motion.div className="flex items-center mb-6" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+>>>>>>> 6e4d586 (any message)
                     <div className="flex text-yellow-400 mr-2">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star key={star} className="w-5 h-5 fill-current" />
@@ -286,9 +353,15 @@ const ProductDetail = () => {
                     <span className="text-sm text-gray-500">(150 reviews)</span>
                     <span className="mx-3 text-gray-300">|</span>
                     <span className="text-sm text-green-600 font-medium">In Stock</span>
+<<<<<<< HEAD
                   </div>
 
                   <div className="mb-6">
+=======
+                  </motion.div>
+
+                  <motion.div className="mb-6" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+>>>>>>> 6e4d586 (any message)
                     <div className="flex items-center">
                       <span className="text-3xl font-bold text-gray-900">${finalPrice.toFixed(2)}</span>
                       {hasDiscount && (
@@ -300,6 +373,7 @@ const ProductDetail = () => {
                         </span>
                       )}
                     </div>
+<<<<<<< HEAD
                   </div>
 
                   <p className="text-gray-600 mb-8">
@@ -307,6 +381,15 @@ const ProductDetail = () => {
                   </p>
 
                   <div className="border-t border-b border-gray-200 py-6 mb-6">
+=======
+                  </motion.div>
+
+                  <motion.p className="text-gray-600 mb-8" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+                    {product.description || 'No description available for this product.'}
+                  </motion.p>
+
+                  <motion.div className="border-t border-b border-gray-200 py-6 mb-6" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+>>>>>>> 6e4d586 (any message)
                     {/* <div className="mb-4">
                       <h3 className="text-sm font-medium text-gray-900   mb-2">Colors</h3>
                       <div className="flex space-x-2">
@@ -344,7 +427,11 @@ const ProductDetail = () => {
                       </div>
                     </div> */}
 
+<<<<<<< HEAD
                     <div className="flex items-center space-x-6">
+=======
+                    <motion.div className="flex items-center space-x-6" variants={fadeUp}>
+>>>>>>> 6e4d586 (any message)
                       <div className="flex items-center border border-gray-300 rounded-md">
                         <button
                           onClick={decreaseQuantity}
@@ -361,6 +448,7 @@ const ProductDetail = () => {
                         </button>
                       </div>
 
+<<<<<<< HEAD
                       <button
                         onClick={handleAddToCart}
                         className="flex-1 bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center justify-center"
@@ -373,13 +461,37 @@ const ProductDetail = () => {
                         onClick={handleWishlist}
                         className="p-3 border border-gray-300 rounded-md hover:bg-gray-50"
                         aria-label={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+=======
+                      <motion.button
+                        onClick={handleAddToCart}
+                        className="flex-1 bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center justify-center"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <ShoppingCart className="w-5 h-5 mr-2" />
+                        Add to Cart
+                      </motion.button>
+
+                      <motion.button
+                        onClick={handleWishlist}
+                        className="p-3 border border-gray-300 rounded-md hover:bg-gray-50"
+                        aria-label={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+>>>>>>> 6e4d586 (any message)
                       >
                         <Heart
                           className={`w-5 h-5 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
                         />
+<<<<<<< HEAD
                       </button>
                     </div>
                   </div>
+=======
+                      </motion.button>
+                    </motion.div>
+                  </motion.div>
+>>>>>>> 6e4d586 (any message)
 
                   <div className="space-y-4">
                     <div className="border-b border-gray-200">
@@ -391,7 +503,11 @@ const ProductDetail = () => {
                         {isDescriptionOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       </button>
                       {isDescriptionOpen && (
+<<<<<<< HEAD
                         <div className="pb-4 text-gray-600">
+=======
+                        <motion.div className="pb-4 text-gray-600" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} transition={{ duration: 0.3 }}>
+>>>>>>> 6e4d586 (any message)
                           <p className="mb-4">
                             {product.long_description || product.description || 'No detailed description available.'}
                           </p>
@@ -409,7 +525,11 @@ const ProductDetail = () => {
                               <span>Available in multiple colors</span>
                             </li>
                           </ul>
+<<<<<<< HEAD
                         </div>
+=======
+                        </motion.div>
+>>>>>>> 6e4d586 (any message)
                       )}
                     </div>
 
@@ -422,10 +542,17 @@ const ProductDetail = () => {
                         {isShippingOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       </button>
                       {isShippingOpen && (
+<<<<<<< HEAD
                         <div className="pb-4 text-gray-600">
                           <p className="mb-2">Free shipping on all orders over $50. Standard delivery takes 3-5 business days.</p>
                           <p>Free returns within 30 days of purchase.</p>
                         </div>
+=======
+                        <motion.div className="pb-4 text-gray-600" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} transition={{ duration: 0.3 }}>
+                          <p className="mb-2">Free shipping on all orders over $50. Standard delivery takes 3-5 business days.</p>
+                          <p>Free returns within 30 days of purchase.</p>
+                        </motion.div>
+>>>>>>> 6e4d586 (any message)
                       )}
                     </div>
 
@@ -438,7 +565,11 @@ const ProductDetail = () => {
                         {isReviewsOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       </button>
                       {isReviewsOpen && (
+<<<<<<< HEAD
                         <div className="pb-4">
+=======
+                        <motion.div className="pb-4" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} transition={{ duration: 0.3 }}>
+>>>>>>> 6e4d586 (any message)
                           <div className="flex items-center mb-4">
                             <div className="flex text-yellow-400 mr-2">
                               {[1, 2, 3, 4, 5].map((star) => (
@@ -471,7 +602,11 @@ const ProductDetail = () => {
                               <p className="text-gray-600 text-sm">Great product! Fits perfectly and the quality is amazing.</p>
                             </div>
                           </div>
+<<<<<<< HEAD
                         </div>
+=======
+                        </motion.div>
+>>>>>>> 6e4d586 (any message)
                       )}
                     </div>
                   </div>
@@ -480,10 +615,17 @@ const ProductDetail = () => {
 
               <div>
                 <div className="max-w-4xl mx-auto mt-16 px-4">
+<<<<<<< HEAD
                   <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
                   <div className="space-y-4">
                     {faqItems.map((faq, index) => (
                       <div key={index} className="border-b border-gray-200">
+=======
+                  <motion.h2 className="text-2xl font-bold text-gray-900 mb-8 text-center" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>Frequently Asked Questions</motion.h2>
+                  <div className="space-y-4">
+                    {faqItems.map((faq, index) => (
+                      <motion.div key={index} className="border-b border-gray-200" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+>>>>>>> 6e4d586 (any message)
                         <button
                           className="flex justify-between items-center w-full py-4 text-left text-gray-900 font-medium"
                           onClick={() => toggleFaq(index)}
@@ -497,21 +639,36 @@ const ProductDetail = () => {
                           )}
                         </button>
                         {openFaqIndex === index && (
+<<<<<<< HEAD
                           <div className="pb-4 text-gray-600">
                             <p>{faq.answer}</p>
                           </div>
                         )}
                       </div>
+=======
+                          <motion.div className="pb-4 text-gray-600" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} transition={{ duration: 0.3 }}>
+                            <p>{faq.answer}</p>
+                          </motion.div>
+                        )}
+                      </motion.div>
+>>>>>>> 6e4d586 (any message)
                     ))}
                   </div>
                 </div>
 
                 {relatedProducts.length > 0 && (
                   <div className="mt-16">
+<<<<<<< HEAD
                     <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">You May Also Like</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                       {relatedProducts.map((relatedProduct) => (
                         <div key={relatedProduct.id} className="group relative">
+=======
+                    <motion.h2 className="text-2xl font-bold text-gray-900 mb-8 text-center" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>You May Also Like</motion.h2>
+                    <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
+                      {relatedProducts.map((relatedProduct) => (
+                        <motion.div key={relatedProduct.id} className="group relative" variants={fadeUp} whileHover={{ scale: 1.02 }}>
+>>>>>>> 6e4d586 (any message)
                           <Link to={`/product/${relatedProduct.slug}`} className="block">
                             <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-200">
                               <img
@@ -563,9 +720,15 @@ const ProductDetail = () => {
                           >
                             Add to Cart
                           </button>
+<<<<<<< HEAD
                         </div>
                       ))}
                     </div>
+=======
+                        </motion.div>
+                      ))}
+                    </motion.div>
+>>>>>>> 6e4d586 (any message)
                   </div>
                 )}
               </div>
@@ -583,7 +746,11 @@ const ProductDetail = () => {
           )}
         </div>
       </div>
+<<<<<<< HEAD
     </div>
+=======
+    </motion.div>
+>>>>>>> 6e4d586 (any message)
   );
 };
 

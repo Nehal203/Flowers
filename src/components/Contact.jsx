@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+<<<<<<< HEAD
+=======
+import { motion } from 'framer-motion';
+>>>>>>> 6e4d586 (any message)
 
 export const Contact = () => {
     const [formData, setFormData] = useState({
@@ -27,8 +31,16 @@ export const Contact = () => {
         setLoading(false);
     };
 
+<<<<<<< HEAD
     return (
         <div className="min-h-screen bg-gray-50">
+=======
+    const fadeUp = { hidden: { y: 16, opacity: 0 }, show: { y: 0, opacity: 1, transition: { duration: 0.5 } } };
+    const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+
+    return (
+        <motion.div className="min-h-screen bg-gray-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+>>>>>>> 6e4d586 (any message)
             <div
                 className="relative h-[400px] bg-cover bg-center flex items-center justify-center text-center"
                 style={{
@@ -40,19 +52,30 @@ export const Contact = () => {
                 }}
             >
                 <div className="absolute inset-0 bg-black/50"></div>
+<<<<<<< HEAD
                 <div className="relative container mx-auto px-4 ">
                     <h1 className="text-md mb-4 text-white">CONTACT US</h1>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">We'd love to hear from you</h1>
+=======
+                <motion.div className="relative container mx-auto px-4 " variants={container} initial="hidden" animate="show">
+                    <motion.h1 className="text-md mb-4 text-white" variants={fadeUp}>CONTACT US</motion.h1>
+                    <motion.h1 className="text-5xl md:text-7xl font-bold mb-6 text-white" variants={fadeUp}>We'd love to hear from you</motion.h1>
+>>>>>>> 6e4d586 (any message)
                     {/* <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white">Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.</p> */}
                     {/* <Link to="/shop" className="bg-white text-pink-600 px-10 py-4 rounded-full font-semibold hover:bg-pink-100 transition-all hover:scale-105 inline-block text-lg">
                         Shop Now
                     </Link> */}
+<<<<<<< HEAD
                 </div>
+=======
+                </motion.div>
+>>>>>>> 6e4d586 (any message)
             </div>
 
             <div className="container mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <div>
+<<<<<<< HEAD
                         <h2 className="text-2xl font-bold text-gray-800 mb-6">Get in Touch</h2>
                         <p className="text-gray-600 mb-8">
                             Have a question or special request? Fill out the form and our team will get back to you within 24 hours.
@@ -60,6 +83,15 @@ export const Contact = () => {
 
                         <div className="space-y-6 mb-8">
                             <div className="flex items-start gap-4">
+=======
+                        <motion.h2 className="text-2xl font-bold text-gray-800 mb-6" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>Get in Touch</motion.h2>
+                        <motion.p className="text-gray-600 mb-8" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+                            Have a question or special request? Fill out the form and our team will get back to you within 24 hours.
+                        </motion.p>
+
+                        <motion.div className="space-y-6 mb-8" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+                            <motion.div className="flex items-start gap-4" variants={fadeUp}>
+>>>>>>> 6e4d586 (any message)
                                 <div className="bg-rose-100 p-3 rounded-lg">
                                     <MapPin className="text-rose-600" size={24} />
                                 </div>
@@ -67,9 +99,15 @@ export const Contact = () => {
                                     <h3 className="font-semibold text-gray-800 mb-1">Address</h3>
                                     <p className="text-gray-600">123 Flower Street, Garden City, India</p>
                                 </div>
+<<<<<<< HEAD
                             </div>
 
                             <div className="flex items-start gap-4">
+=======
+                            </motion.div>
+
+                            <motion.div className="flex items-start gap-4" variants={fadeUp}>
+>>>>>>> 6e4d586 (any message)
                                 <div className="bg-rose-100 p-3 rounded-lg">
                                     <Phone className="text-rose-600" size={24} />
                                 </div>
@@ -77,9 +115,15 @@ export const Contact = () => {
                                     <h3 className="font-semibold text-gray-800 mb-1">Phone</h3>
                                     <p className="text-gray-600">+91 12345678990</p>
                                 </div>
+<<<<<<< HEAD
                             </div>
 
                             <div className="flex items-start gap-4">
+=======
+                            </motion.div>
+
+                            <motion.div className="flex items-start gap-4" variants={fadeUp}>
+>>>>>>> 6e4d586 (any message)
                                 <div className="bg-rose-100 p-3 rounded-lg">
                                     <Mail className="text-rose-600" size={24} />
                                 </div>
@@ -87,9 +131,15 @@ export const Contact = () => {
                                     <h3 className="font-semibold text-gray-800 mb-1">Email</h3>
                                     <p className="text-gray-600">hello@flowers.com</p>
                                 </div>
+<<<<<<< HEAD
                             </div>
 
                             <div className="flex items-start gap-4">
+=======
+                            </motion.div>
+
+                            <motion.div className="flex items-start gap-4" variants={fadeUp}>
+>>>>>>> 6e4d586 (any message)
                                 <div className="bg-rose-100 p-3 rounded-lg">
                                     <Clock className="text-rose-600" size={24} />
                                 </div>
@@ -97,6 +147,7 @@ export const Contact = () => {
                                     <h3 className="font-semibold text-gray-800 mb-1">Working Hours</h3>
                                     <p className="text-gray-600">Monday - Sunday: 9:00 AM - 8:00 PM</p>
                                 </div>
+<<<<<<< HEAD
                             </div>
                         </div>
                     </div>
@@ -108,6 +159,19 @@ export const Contact = () => {
                             <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6">
                                 Thank you! Your message has been sent successfully.
                             </div>
+=======
+                            </motion.div>
+                        </motion.div>
+                    </div>
+
+                    <motion.div className="bg-white rounded-lg shadow-lg p-8" initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5 }}>
+                        <motion.h2 className="text-2xl font-bold text-gray-800 mb-6" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>Send us a Message</motion.h2>
+
+                        {success && (
+                            <motion.div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                Thank you! Your message has been sent successfully.
+                            </motion.div>
+>>>>>>> 6e4d586 (any message)
                         )}
 
                         <form onSubmit={handleSubmit} className="space-y-4">
@@ -162,6 +226,7 @@ export const Contact = () => {
                                 />
                             </div>
 
+<<<<<<< HEAD
                             <button
                                 type="submit"
                                 disabled={loading}
@@ -174,6 +239,22 @@ export const Contact = () => {
                 </div>
             </div>
         </div>
+=======
+                            <motion.button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full bg-rose-600 hover:bg-rose-700 text-white py-3 rounded-lg font-semibold transition disabled:opacity-50"
+                                whileHover={{ scale: loading ? 1 : 1.01 }}
+                                whileTap={{ scale: loading ? 1 : 0.98 }}
+                            >
+                                {loading ? 'Sending...' : 'Send Message'}
+                            </motion.button>
+                        </form>
+                    </motion.div>
+                </div>
+            </div>
+        </motion.div>
+>>>>>>> 6e4d586 (any message)
     );
 };
 

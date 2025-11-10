@@ -24,7 +24,10 @@ import OrderConfirmation from "./components/OrderConfirmation";
 import AdminDashboard from "./pages/Admin/Dashboard";
 import DashboardHome from "./pages/Admin/DashboardHome";
 import AdminLogin from "./pages/Admin/Login";
-import Products from "./pages/Admin/Products";
+import Products from "./pages/Admin/Products";  
+import Orders from "./pages/Admin/Orders";
+import Customerman from "./pages/Admin/Customerman";
+import Setting from "./pages/Admin/Setting";
 
 const AdminLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -97,18 +100,18 @@ function AppContent() {
           } />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={
-            <AdminLayout />
+            <PrivateRoute>
+              <AdminLayout />
+            </PrivateRoute>
           }>
             <Route index element={<DashboardHome />} />
+            <Route path="products" element={<Products />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="customers" element={<Customerman />} />
+            <Route path="settings" element={<Setting />} />
           </Route>
-
-          <Route path="/admin/login" element={
-            <AdminLogin />
-          } />
-          <Route path="/admin/products" element={
-            <Products />
-          } />
         </Routes>
       </main>
       <Footer />
