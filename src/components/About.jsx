@@ -83,7 +83,7 @@ const About = () => {
                     marginTop: '-80px',
                     paddingTop: '80px',
                 }}
-            >
+            >   
                 <div className="absolute inset-0 bg-black/50"></div>
                 <motion.div className="relative container mx-auto px-4 " variants={container} initial="hidden" animate="show">
                     <motion.h1 className="text-md mb-4 text-white" variants={fadeUp}>ABOUT US</motion.h1>

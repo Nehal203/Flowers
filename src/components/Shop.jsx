@@ -204,6 +204,7 @@ export const Shop = ({ onNavigate, categorySlug }) => {
     return (
         <motion.div className="min-h-screen bg-gray-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
             <div
+            
                 className="relative h-[400px] bg-cover bg-center flex items-center justify-center text-center"
                 style={{
                     backgroundImage: 'url(https://websitedemos.net/florist-04/wp-content/uploads/sites/346/2019/03/bg-07-free-img.jpg)',
@@ -217,10 +218,7 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                 <motion.div className="relative container mx-auto px-4 " variants={container} initial="hidden" animate="show">
                     <motion.h1 className="text-md mb-4 text-white" variants={fadeUp}>SHOP FLOWERS</motion.h1>
                     <motion.h1 className="text-5xl md:text-7xl font-bold mb-6 text-white" variants={fadeUp}>Discover our beautiful collection of fresh flowers</motion.h1>
-                    {/* <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-white">Share some details here. This is Flexible section where you can share anything you want. It could be details or some information.</p> */}
-                    {/* <Link to="/shop" className="bg-white text-pink-600 px-10 py-4 rounded-full font-semibold hover:bg-pink-100 transition-all hover:scale-105 inline-block text-lg">
-                        Shop Now
-                    </Link> */}
+                 
                 </motion.div>
             </div>
 
@@ -236,15 +234,7 @@ export const Shop = ({ onNavigate, categorySlug }) => {
                             <div className="mb-6">
                                 <h3 className="font-semibold mb-3 text-gray-800">Categories</h3>
                                 <div className="space-y-2">
-                                    {/* <button
-                                        onClick={() => setSelectedCategory('all')}
-                                        className={`w-full text-left px-3 py-2 rounded-lg transition ${selectedCategory === 'all'
-                                            ? 'bg-rose-600 text-white'
-                                            : 'hover:bg-gray-100'
-                                            }`}
-                                    >
-                                        All Flowers
-                                    </button> */}
+                                    
 
                                     {categories.map((category) => (
                                         <button

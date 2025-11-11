@@ -217,14 +217,14 @@ const ProductDetail = () => {
             Back to Shop
           </motion.button>
 
-          {loading ? (
+          {loading ? (  
             <div>Loading...</div>
           ) : product ? (
             <div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                 <div
                   ref={imageRef}
-                  className={`space-y-4 ${isSticky ? 'sticky top-24 transition-all duration-300' : ''}`}
+                  className={`space-y-4 ${isSticky ? ' top-24 transition-all duration-300' : ''}`}
                 >
                   <motion.div className="bg-white rounded-lg overflow-hidden shadow-md relative" initial={{ scale: 0.98, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.4 }}>
                     <button
@@ -238,19 +238,28 @@ const ProductDetail = () => {
                         <HeartOff className="w-6 h-6 text-gray-600" />
                       )}
                     </button>
-                    <motion.img
-                      src={images[selectedImage]}
-                      alt={product.name}
-                      className="w-full h-auto object-cover"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = 'https://via.placeholder.com/100?text=Image';
-                      }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      key={selectedImage}
-                      transition={{ duration: 0.3 }}
-                    />
+                    <div className="relative w-full" style={{ paddingBottom: '100%' }}>
+                      <motion.img
+                        src={images[selectedImage]}
+                        alt={product.name}
+                        className="absolute inset-0 w-full h-full object-contain bg-white"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = 'https://via.placeholder.com/500x500?text=Image+Not+Available';
+                        }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        key={selectedImage}
+                        transition={{ duration: 0.3 }}
+                        loading="eager"
+                        style={{
+                          maxWidth: '100%',
+                          maxHeight: '100%',
+                          objectFit: 'contain',
+                          objectPosition: 'center'
+                        }}
+                      />
+                    </div>
                   </motion.div>
                   <div className="flex space-x-2 overflow-x-auto pb-2">
                     {images.map((img, index) => (
@@ -264,15 +273,24 @@ const ProductDetail = () => {
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.3, delay: index * 0.05 }}
                       >
-                        <img
-                          src={img}
-                          alt={`${product.name} thumbnail ${index + 1}`}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = 'https://via.placeholder.com/100?text=Image';
-                          }}
-                        />
+                        <div className="w-full h-full flex items-center justify-center bg-gray-50">
+                          <img
+                            src={img}
+                            alt={`${product.name} thumbnail ${index + 1}`}
+                            className="w-full h-full object-contain"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = 'https://via.placeholder.com/100?text=Image';
+                            }}
+                            loading="lazy"
+                            style={{
+                              maxWidth: '100%',
+                              maxHeight: '100%',
+                              objectFit: 'contain',
+                              objectPosition: 'center'
+                            }}
+                          />
+                        </div>
                       </motion.button>
                     ))}
                   </div>
@@ -319,42 +337,6 @@ const ProductDetail = () => {
                   </motion.p>
 
                   <motion.div className="border-t border-b border-gray-200 py-6 mb-6" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
-                    {/* <div className="mb-4">
-                      <h3 className="text-sm font-medium text-gray-900   mb-2">Colors</h3>
-                      <div className="flex space-x-2">
-                        {['White', 'Black', 'Blue', 'Pink', 'Gray'].map((color) => (
-                          <button
-                            key={color}
-                            onClick={() => setCurrentColor(color)}
-                            className={`w-8 h-8 rounded-full border-2 ${currentColor === color ? 'border-gray-900' : 'border-gray-200'}`}
-                            style={{ backgroundColor: color.toLowerCase() }}
-                            aria-label={color}
-                          >
-                            {currentColor === color && (
-                              <Check className="w-4 h-4 text-white mx-auto" />
-                            )}
-                          </button>
-                        ))}
-                      </div>
-                    </div> */}
-
-                    {/* <div className="mb-4">
-                      <h3 className="text-sm font-medium text-gray-900 mb-2">Size</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) => (
-                          <button
-                            key={size}
-                            onClick={() => setCurrentSize(size)}
-                            className={`px-4 py-2 border rounded-md text-sm font-medium ${currentSize === size
-                              ? 'bg-gray-900 text-white border-gray-900'
-                              : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                              }`}
-                          >
-                            {size}
-                          </button>
-                        ))}
-                      </div>
-                    </div> */}
 
                     <motion.div className="flex items-center space-x-6" variants={fadeUp}>
                       <div className="flex items-center border border-gray-300 rounded-md">

@@ -17,9 +17,19 @@ export const WishlistProvider = ({ children }) => {
 
   const addToWishlist = (product) => {
     setWishlist(prevWishlist => {
+      const productWithImages = {
+        ...product,
+        image_url: product.images && Array.isArray(product.images) && product.images.length > 0 
+          ? product.images[0] 
+          : product.image_url || '/placeholder-product.jpg',
+        image: product.images && Array.isArray(product.images) && product.images.length > 0 
+          ? product.images[0] 
+          : product.image || product.image_url || '/placeholder-product.jpg'
+      };
+
       const existingItem = prevWishlist.find(item => item.id === product.id);
       if (!existingItem) {
-        return [...prevWishlist, product];
+        return [...prevWishlist, productWithImages];
       }
       return prevWishlist;
     });

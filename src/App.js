@@ -28,6 +28,7 @@ import Products from "./pages/Admin/Products";
 import Orders from "./pages/Admin/Orders";
 import Customerman from "./pages/Admin/Customerman";
 import Setting from "./pages/Admin/Setting";
+import Account from "./components/Account";
 
 const AdminLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -44,6 +45,8 @@ const AdminLayout = () => {
 function AppContent() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const location = window.location.pathname;
+  const isAdminRoute = location.startsWith('/admin');
 
   const handleNavigation = (typeOrPath, slug) => {
     if (typeOrPath === 'product' && slug) {
@@ -57,7 +60,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navb onNavigate={handleNavigation} />
+      {!isAdminRoute && <Navb onNavigate={handleNavigation} />}
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home onNavigate={handleNavigation} />} />
@@ -66,6 +69,7 @@ function AppContent() {
           <Route path="/shop/category/:categorySlug" element={<Shop />} />
           <Route path="/product/:productSlug" element={<ProductDetail />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/account" element={<Account />} />
 
           <Route path="/cart" element={
             <PrivateRoute>
@@ -82,7 +86,7 @@ function AppContent() {
               <Checkout />
             </PrivateRoute>
           } />
-          <Route path="/order-confirmation" element={
+          <Route path="/orderconfirmation" element={
             <PrivateRoute>
               <OrderConfirmation />
             </PrivateRoute>
@@ -100,9 +104,7 @@ function AppContent() {
           } />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          <Route path="/admin/login" element={
-            <AdminLogin />
-          } />
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={
             <AdminLayout />
           }>
@@ -111,11 +113,13 @@ function AppContent() {
             <Route path="orders" element={<Orders />} />
             <Route path="customers" element={<Customerman />} />
             <Route path="settings" element={<Setting />} />
+           
           </Route>
         </Routes>
       </main>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </div>
+    
   );
 }
 

@@ -142,6 +142,13 @@ const Customerman = () => {
         setOrders(updatedOrders);
     };
 
+    const handleDeleteCustomer = (orderId) => {
+        if (window.confirm('Are you sure you want to delete this customer?')) {
+            const updatedOrders = orders.filter(order => order.id !== orderId);
+            setOrders(updatedOrders);
+        }
+    };
+
     return (
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
@@ -188,8 +195,7 @@ const Customerman = () => {
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registered Date</th>
-                                {/* <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th> */}
-                                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+                                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
@@ -214,12 +220,13 @@ const Customerman = () => {
                                         {order.date}
                                     </td>
 
-                                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                         <button
-                                            onClick={() => updateOrderStatus(order.id, 'Deleted')}
-                                            className="text-red-600 hover:text-red-900 mr-4"
+                                            onClick={() => handleDeleteCustomer(order.id)}
+                                            className="text-red-600 hover:text-red-900 focus:outline-none"
+                                            title="Delete Customer"
                                         >
-                                            <FiTrash className="inline-block mr-1" /> Delete
+                                            <FiTrash className="h-5 w-5 inline-block" />
                                         </button>
                                     </td>
                                 </tr>

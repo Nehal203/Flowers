@@ -204,43 +204,45 @@ export const Home = ({ onNavigate }) => {
   }, []);
 
   return (
-    <motion.div className="min-h-screen pt-0">
-      {/* Hero Section */}
+    <motion.div className="min-h-screen" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
       <motion.section
         ref={heroRef}
-        className="relative h-[800px] bg-cover bg-center flex items-center justify-center text-center"
-        style={{
-          backgroundImage: 'url(/images/home.png)',
-          backgroundPosition: 'center 30%',
-          backgroundSize: 'cover',
-          marginTop: '-80px',
-          paddingTop: '80px',
-        }}
+        className="relative w-full min-h-screen flex items-center justify-center text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="absolute inset-0 bg-black/20" />
-        <motion.div 
+        transition={{ duration: 0.4 }}
+      >cd   
+      
+        <div
+          className="absolute inset-0 w-full h-full -z-10"
+          style={{
+            backgroundImage: 'url(/images/home.png)',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+        <div className="absolute inset-0 bg-black/20 -z-10" />
+        <motion.div
           className="relative container mx-auto px-4 "
           variants={containerVariants}
           initial="hidden"
           animate={isHeroInView ? "visible" : "hidden"}
         >
           <motion.div className="max-w-4xl mx-auto flex flex-col gap-8 text-black">
-            <motion.h1 
+            <motion.h1
               className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
               variants={itemVariants}
             >
               Beautiful Flowers for Every Occasion
             </motion.h1>
-            <motion.p 
+            <motion.p
               className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto"
               variants={itemVariants}
             >
               Fresh blooms delivered to your doorstep. Make every moment special with our handpicked collection.
             </motion.p>
-            <motion.div 
+            <motion.div
               className="flex justify-center"
               variants={itemVariants}
             >
@@ -267,9 +269,9 @@ export const Home = ({ onNavigate }) => {
         <WhyChooseUs />
       </motion.section>
 
-      
 
-      <motion.section 
+
+      <motion.section
         className="py-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -277,7 +279,7 @@ export const Home = ({ onNavigate }) => {
         transition={{ duration: 0.8 }}
       >
         <div className="container mx-auto px-4">
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -285,7 +287,7 @@ export const Home = ({ onNavigate }) => {
             transition={{ delay: 0.2 }}
           >
             <h2 className="text-4xl font-bold text-gray-800 mb-4">Shop by Category</h2>
-            <motion.div 
+            <motion.div
               className="w-20 h-1 bg-rose-500 mx-auto mb-6"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -329,7 +331,7 @@ export const Home = ({ onNavigate }) => {
         </div>
       </motion.section>
 
-      <motion.section 
+      <motion.section
         className="py-16 bg-white"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -337,7 +339,7 @@ export const Home = ({ onNavigate }) => {
         transition={{ duration: 0.8 }}
       >
         <div className="container mx-auto px-4">
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -345,7 +347,7 @@ export const Home = ({ onNavigate }) => {
             transition={{ delay: 0.2 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Featured Products</h2>
-            <motion.div 
+            <motion.div
               className="w-20 h-1 bg-rose-500 mx-auto mb-6"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -356,7 +358,7 @@ export const Home = ({ onNavigate }) => {
               Discover our handpicked selection of premium flowers and gifts
             </p>
           </motion.div>
-          
+
           {loading ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
               {[...Array(4)].map((_, i) => (
@@ -368,13 +370,13 @@ export const Home = ({ onNavigate }) => {
               {featuredProducts.slice(0, 4).map((product) => (
                 <div key={product.id} className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
                   <div className="relative overflow-hidden">
-                    <img 
-                      src={product.image_url} 
+                    <img
+                      src={product.image_url}
                       alt={product.name}
                       className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <button 
+                      <button
                         onClick={() => onNavigate(`/product/${product.id}`)}
                         className="bg-white text-rose-600 px-6 py-2 rounded-full font-medium hover:bg-rose-600 hover:text-white transition-colors"
                       >
@@ -386,7 +388,7 @@ export const Home = ({ onNavigate }) => {
                     <h3 className="text-lg font-semibold text-gray-800 mb-1">{product.name}</h3>
                     <div className="flex items-center justify-between mt-3">
                       <span className="text-rose-600 font-bold">${product.price.toFixed(2)}</span>
-                      <button 
+                      <button
                         onClick={() => handleAddToCart(product)}
                         className="bg-rose-100 text-rose-600 p-2 rounded-full hover:bg-rose-600 hover:text-white transition-colors"
                         aria-label="Add to cart"
@@ -399,9 +401,9 @@ export const Home = ({ onNavigate }) => {
               ))}
             </div>
           )}
-          
+
           <div className="text-center mt-12">
-            <button 
+            <button
               onClick={() => onNavigate('/shop')}
               className="border-2 border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors duration-300"
             >

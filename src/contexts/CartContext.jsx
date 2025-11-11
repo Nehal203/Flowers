@@ -17,17 +17,32 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product, quantity = 1) => {
     setCart(prevCart => {
+      const productWithImages = {
+        ...product,
+        image_url: product.images && Array.isArray(product.images) && product.images.length > 0 
+          ? product.images[0] 
+          : product.image_url || '/placeholder-product.jpg'
+      };
+
       const existingItem = prevCart.find(item => item.product.id === product.id);
       
       if (existingItem) {
         return prevCart.map(item =>
           item.product.id === product.id
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { 
+                ...item, 
+                quantity: item.quantity + quantity,
+                product: productWithImages
+              }
             : item
         );
       }
       
-      return [...prevCart, { id: Date.now().toString(), product, quantity }];
+      return [...prevCart, { 
+        id: Date.now().toString(), 
+        product: productWithImages, 
+        quantity 
+      }];
     });
   };
 
