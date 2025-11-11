@@ -1,19 +1,12 @@
-import { useState, useEffect, useRef, Fragment } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Heart, HeartOff, ShoppingCart, Star, Minus, Plus, CheckCircle, ChevronRight, ChevronLeft, ChevronDown, ChevronUp, Check, X, ArrowLeft } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useWishlist } from '../contexts/WishlistContext';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { sampleProducts } from '../data/sampleProducts';
-import { Link } from 'react-router-dom';
-<<<<<<< HEAD
-
-
-
-=======
 import { motion } from 'framer-motion';
->>>>>>> 6e4d586 (any message)
 
 const ProductDetail = () => {
   const { productSlug } = useParams();
@@ -120,7 +113,7 @@ const ProductDetail = () => {
       selectedSize: currentSize,
       image_url: Array.isArray(product.images) && product.images.length > 0
         ? product.images[0]
-        : product.image_url || '/path/to/default-image.jpg'
+        : product.image_url || '/placeholder-image.jpg'
     };
 
     addToCart(productToAdd, quantity);
@@ -199,30 +192,36 @@ const ProductDetail = () => {
     );
   }
 
-  const finalPrice = product.discount_price || product.price;
   const hasDiscount = product.discount_price && product.discount_price < product.price;
+  const finalPrice = hasDiscount ? product.discount_price : product.price;
+
+  const fadeUp = {
+    hidden: { y: 16, opacity: 0 },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const container = {
+    hidden: {},
+    show: {
+      transition: { staggerChildren: 0.08 }
+    }
+  };
+
   const images = product.images && product.images.length > 0
     ? product.images
-    : [product.image_url || product.image || 'https://via.placeholder.com/500'];
-
-<<<<<<< HEAD
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-white">
-        <div className="container mx-auto px-4 py-12">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center text-gray-600 hover:text-gray-900 mb-6 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Shop
-          </button>
-=======
-  const fadeUp = { hidden: { y: 16, opacity: 0 }, show: { y: 0, opacity: 1, transition: { duration: 0.5 } } };
-  const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+    : [product.image_url || product.image || '/placeholder-image.jpg'];
 
   return (
-    <motion.div className="min-h-screen bg-gray-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+    <motion.div
+      className="min-h-screen bg-gray-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
       <div className="bg-white">
         <div className="container mx-auto px-4 py-12">
           <motion.button
@@ -231,11 +230,11 @@ const ProductDetail = () => {
             variants={fadeUp}
             initial="hidden"
             animate="show"
+            whileHover={{ x: -2 }}
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to Shop
           </motion.button>
->>>>>>> 6e4d586 (any message)
 
           {loading ? (
             <div>Loading...</div>
@@ -244,14 +243,10 @@ const ProductDetail = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                 <div
                   ref={imageRef}
-                  className={`space-y-4 ${isSticky ? 'sticky top-24 transition-all duration-300' : ''}`}
+                  className={`space-y-4 ${isSticky ? ' top-24 transition-all duration-300' : ''}`}
                 >
-<<<<<<< HEAD
                   <div className="bg-white rounded-lg overflow-hidden shadow-md relative">
-=======
-                  <motion.div className="bg-white rounded-lg overflow-hidden shadow-md relative" initial={{ scale: 0.98, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.4 }}>
->>>>>>> 6e4d586 (any message)
-                    <button
+                    <motion.button
                       onClick={handleWishlist}
                       className="absolute top-4 right-4 z-10 p-2 bg-white/80 rounded-full shadow-md hover:bg-white transition-colors"
                       aria-label={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
@@ -261,12 +256,8 @@ const ProductDetail = () => {
                       ) : (
                         <HeartOff className="w-6 h-6 text-gray-600" />
                       )}
-                    </button>
-<<<<<<< HEAD
-                    <img
-=======
+                    </motion.button>
                     <motion.img
->>>>>>> 6e4d586 (any message)
                       src={images[selectedImage]}
                       alt={product.name}
                       className="w-full h-auto object-cover"
@@ -274,77 +265,63 @@ const ProductDetail = () => {
                         e.target.onerror = null;
                         e.target.src = 'https://via.placeholder.com/100?text=Image';
                       }}
-<<<<<<< HEAD
-                    />
-                  </div>
-                  <div className="flex space-x-2 overflow-x-auto pb-2">
-                    {images.map((img, index) => (
-                      <button
-=======
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       key={selectedImage}
                       transition={{ duration: 0.3 }}
                     />
-                  </motion.div>
+                  </div>
                   <div className="flex space-x-2 overflow-x-auto pb-2">
                     {images.map((img, index) => (
-                      <motion.button
->>>>>>> 6e4d586 (any message)
+                      <button
                         key={index}
                         onClick={() => setSelectedImage(index)}
-                        className={`flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 ${selectedImage === index ? 'border-blue-500' : 'border-transparent'
-                          }`}
-<<<<<<< HEAD
-=======
-                        initial={{ y: 8, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
->>>>>>> 6e4d586 (any message)
+                        className={`flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 ${
+                          selectedImage === index ? 'border-blue-500' : 'border-transparent'
+                        }`}
                       >
                         <img
                           src={img}
                           alt={`${product.name} thumbnail ${index + 1}`}
                           className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = 'https://via.placeholder.com/100?text=Image';
-                          }}
                         />
-<<<<<<< HEAD
                       </button>
-=======
-                      </motion.button>
->>>>>>> 6e4d586 (any message)
                     ))}
                   </div>
                 </div>
 
                 <div className="lg:pl-8">
-<<<<<<< HEAD
-                  <div className="flex items-center text-sm text-gray-500 mb-2">
-=======
-                  <motion.div className="flex items-center text-sm text-gray-500 mb-2" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
->>>>>>> 6e4d586 (any message)
+                  <motion.div 
+                    className="flex items-center text-sm text-gray-500 mb-2" 
+                    variants={container} 
+                    initial="hidden" 
+                    whileInView="show" 
+                    viewport={{ once: true, amount: 0.3 }}
+                  >
                     <Link to="/"><span>Home</span></Link>
                     <ChevronRight className="w-4 h-4 mx-2" />
                     <Link to="/shop"><span>Shop</span></Link>
                     <ChevronRight className="w-4 h-4 mx-2" />
                     <span className="text-gray-400">{product.name}</span>
-<<<<<<< HEAD
-                  </div>
-
-                  <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
-
-                  <div className="flex items-center mb-6">
-=======
                   </motion.div>
 
-                  <motion.h1 className="text-3xl font-bold text-gray-900 mb-4" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>{product.name}</motion.h1>
+                  <motion.h1 
+                    className="text-3xl font-bold text-gray-900 mb-4" 
+                    variants={fadeUp} 
+                    initial="hidden" 
+                    whileInView="show" 
+                    viewport={{ once: true, amount: 0.3 }}
+                  >
+                    {product.name}
+                  </motion.h1>
 
-                  <motion.div className="flex items-center mb-6" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
->>>>>>> 6e4d586 (any message)
+                  <motion.div 
+                    className="flex items-center mb-6" 
+                    variants={fadeUp} 
+                    initial="hidden" 
+                    whileInView="show" 
+                    viewport={{ once: true, amount: 0.3 }}
+                  >
                     <div className="flex text-yellow-400 mr-2">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <Star key={star} className="w-5 h-5 fill-current" />
@@ -353,15 +330,15 @@ const ProductDetail = () => {
                     <span className="text-sm text-gray-500">(150 reviews)</span>
                     <span className="mx-3 text-gray-300">|</span>
                     <span className="text-sm text-green-600 font-medium">In Stock</span>
-<<<<<<< HEAD
-                  </div>
-
-                  <div className="mb-6">
-=======
                   </motion.div>
 
-                  <motion.div className="mb-6" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
->>>>>>> 6e4d586 (any message)
+                  <motion.div 
+                    className="mb-6" 
+                    variants={fadeUp} 
+                    initial="hidden" 
+                    whileInView="show" 
+                    viewport={{ once: true, amount: 0.3 }}
+                  >
                     <div className="flex items-center">
                       <span className="text-3xl font-bold text-gray-900">${finalPrice.toFixed(2)}</span>
                       {hasDiscount && (
@@ -373,44 +350,50 @@ const ProductDetail = () => {
                         </span>
                       )}
                     </div>
-<<<<<<< HEAD
-                  </div>
-
-                  <p className="text-gray-600 mb-8">
-                    {product.description || 'No description available for this product.'}
-                  </p>
-
-                  <div className="border-t border-b border-gray-200 py-6 mb-6">
-=======
                   </motion.div>
 
-                  <motion.p className="text-gray-600 mb-8" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
+                  <motion.p
+                    className="text-gray-600 mb-8"
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.3 }}
+                  >
                     {product.description || 'No description available for this product.'}
                   </motion.p>
 
-                  <motion.div className="border-t border-b border-gray-200 py-6 mb-6" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>
->>>>>>> 6e4d586 (any message)
-                    {/* <div className="mb-4">
-                      <h3 className="text-sm font-medium text-gray-900   mb-2">Colors</h3>
-                      <div className="flex space-x-2">
-                        {['White', 'Black', 'Blue', 'Pink', 'Gray'].map((color) => (
-                          <button
-                            key={color}
-                            onClick={() => setCurrentColor(color)}
-                            className={`w-8 h-8 rounded-full border-2 ${currentColor === color ? 'border-gray-900' : 'border-gray-200'}`}
-                            style={{ backgroundColor: color.toLowerCase() }}
-                            aria-label={color}
-                          >
-                            {currentColor === color && (
-                              <Check className="w-4 h-4 text-white mx-auto" />
-                            )}
-                          </button>
-                        ))}
+                  <motion.div 
+                    className="border-t border-b border-gray-200 py-6 mb-6" 
+                    variants={container} 
+                    initial="hidden" 
+                    whileInView="show" 
+                    viewport={{ once: true, amount: 0.3 }}
+                  >
+                    <motion.div 
+                      className="flex items-center space-x-6" 
+                      variants={fadeUp}
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true }}
+                    >
+                      <div className="flex items-center border border-gray-300 rounded-md">
+                        <button
+                          onClick={decreaseQuantity}
+                          className="px-3 py-2 text-gray-600 hover:bg-gray-100"
+                          disabled={quantity <= 1}
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
+                        <span className="w-12 text-center">{quantity}</span>
+                        <button
+                          onClick={increaseQuantity}
+                          className="px-3 py-2 text-gray-600 hover:bg-gray-100"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
                       </div>
-                    </div> */}
 
-                    {/* <div className="mb-4">
-                      <h3 className="text-sm font-medium text-gray-900 mb-2">Size</h3>
+                      <button
                       <div className="flex flex-wrap gap-2">
                         {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((size) => (
                           <button
@@ -428,39 +411,38 @@ const ProductDetail = () => {
                     </div> */}
 
 <<<<<<< HEAD
-                    <div className="flex items-center space-x-6">
+<div className="flex items-center space-x-6">
 =======
                     <motion.div className="flex items-center space-x-6" variants={fadeUp}>
 >>>>>>> 6e4d586 (any message)
-                      <div className="flex items-center border border-gray-300 rounded-md">
-                        <button
-                          onClick={decreaseQuantity}
-                          className="px-3 py-2 text-gray-600 hover:bg-gray-100"
-                        >
-                          <Minus className="w-4 h-4" />
-                        </button>
-                        <span className="w-12 text-center">{quantity}</span>
-                        <button
-                          onClick={increaseQuantity}
-                          className="px-3 py-2 text-gray-600 hover:bg-gray-100"
-                        >
-                          <Plus className="w-4 h-4" />
-                        </button>
-                      </div>
+    <div className="flex items-center border border-gray-300 rounded-md">
+      <button
+        onClick={decreaseQuantity}
+        className="px-3 py-2 text-gray-600 hover:bg-gray-100"
+      >
+        <Minus className="w-4 h-4" />
+      </button>
+      <span className="w-12 text-center">{quantity}</span>
+      <button
+        onClick={increaseQuantity}
+        className="px-3 py-2 text-gray-600 hover:bg-gray-100"
+      >
+        <Plus className="w-4 h-4" />
+      </button>
+    </div>
 
-<<<<<<< HEAD
-                      <button
-                        onClick={handleAddToCart}
-                        className="flex-1 bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center justify-center"
-                      >
-                        <ShoppingCart className="w-5 h-5 mr-2" />
-                        Add to Cart
-                      </button>
+    <button
+      onClick={handleAddToCart}
+      className="flex-1 bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-800 transition-colors flex items-center justify-center"
+    >
+      <ShoppingCart className="w-5 h-5 mr-2" />
+      Add to Cart
+    </button>
 
-                      <button
-                        onClick={handleWishlist}
-                        className="p-3 border border-gray-300 rounded-md hover:bg-gray-50"
-                        aria-label={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+    <button
+      onClick={handleWishlist}
+      className="p-3 border border-gray-300 rounded-md hover:bg-gray-50"
+      aria-label={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
 =======
                       <motion.button
                         onClick={handleAddToCart}
@@ -479,59 +461,75 @@ const ProductDetail = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
 >>>>>>> 6e4d586 (any message)
-                      >
-                        <Heart
-                          className={`w-5 h-5 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
-                        />
+    >
+      <Heart
+        className={`w-5 h-5 ${isInWishlist(product.id) ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
+      />
 <<<<<<< HEAD
-                      </button>
-                    </div>
-                  </div>
+                      </button >
+                    </div >
+                  </div >
 =======
                       </motion.button>
                     </motion.div>
                   </motion.div>
->>>>>>> 6e4d586 (any message)
+                  </motion.div>
+                </div>
+              </div>
 
-                  <div className="space-y-4">
-                    <div className="border-b border-gray-200">
-                      <button
-                        className="flex justify-between items-center w-full py-4 text-left"
-                        onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
-                      >
-                        <span className="font-medium text-gray-900">Description</span>
-                        {isDescriptionOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                      </button>
-                      {isDescriptionOpen && (
+              <motion.div
+                className="space-y-4 mt-12"
+                variants={container}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+    initial="hidden"
+    whileInView="show"
+    viewport={{ once: true }}
+  >
+    <motion.div
+      className="border-b border-gray-200"
+      variants={fadeUp}
+    >
+      <motion.button
+        whileHover={{ x: 4 }}
+        className="flex justify-between items-center w-full py-4 text-left"
+        onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
+      >
+        <span className="font-medium text-gray-900">Description</span>
+        {isDescriptionOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+      </motion.button>
+      {isDescriptionOpen && (
+        <motion.div 
+          className="pb-4 text-gray-600" 
+          initial={{ height: 0, opacity: 0 }} 
+          animate={{ height: 'auto', opacity: 1 }} 
+          transition={{ duration: 0.3 }}
+        >
+          <p className="mb-4">
+            {product.long_description || product.description || 'No detailed description available.'}
+          </p>
+            <ul className="space-y-2">
+              <li className="flex items-start">
+                <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                <span>High-quality material</span>
+              </li>
+              <li className="flex items-start">
+                <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                <span>Comfortable fit</span>
+              </li>
+              <li className="flex items-start">
+                <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                <span>Available in multiple colors</span>
+              </li>
+            </ul>
 <<<<<<< HEAD
-                        <div className="pb-4 text-gray-600">
-=======
-                        <motion.div className="pb-4 text-gray-600" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} transition={{ duration: 0.3 }}>
->>>>>>> 6e4d586 (any message)
-                          <p className="mb-4">
-                            {product.long_description || product.description || 'No detailed description available.'}
-                          </p>
-                          <ul className="space-y-2">
-                            <li className="flex items-start">
-                              <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                              <span>High-quality material</span>
-                            </li>
-                            <li className="flex items-start">
-                              <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                              <span>Comfortable fit</span>
-                            </li>
-                            <li className="flex items-start">
-                              <CheckCircle className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                              <span>Available in multiple colors</span>
-                            </li>
-                          </ul>
-<<<<<<< HEAD
-                        </div>
+                        </div >
 =======
                         </motion.div>
 >>>>>>> 6e4d586 (any message)
                       )}
-                    </div>
+                    </div >
 
                     <div className="border-b border-gray-200">
                       <button
@@ -542,17 +540,10 @@ const ProductDetail = () => {
                         {isShippingOpen ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                       </button>
                       {isShippingOpen && (
-<<<<<<< HEAD
                         <div className="pb-4 text-gray-600">
                           <p className="mb-2">Free shipping on all orders over $50. Standard delivery takes 3-5 business days.</p>
                           <p>Free returns within 30 days of purchase.</p>
                         </div>
-=======
-                        <motion.div className="pb-4 text-gray-600" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} transition={{ duration: 0.3 }}>
-                          <p className="mb-2">Free shipping on all orders over $50. Standard delivery takes 3-5 business days.</p>
-                          <p>Free returns within 30 days of purchase.</p>
-                        </motion.div>
->>>>>>> 6e4d586 (any message)
                       )}
                     </div>
 
@@ -570,187 +561,184 @@ const ProductDetail = () => {
 =======
                         <motion.div className="pb-4" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} transition={{ duration: 0.3 }}>
 >>>>>>> 6e4d586 (any message)
-                          <div className="flex items-center mb-4">
-                            <div className="flex text-yellow-400 mr-2">
-                              {[1, 2, 3, 4, 5].map((star) => (
-                                <Star key={star} className="w-5 h-5 fill-current" />
-                              ))}
-                            </div>
-                            <span className="text-sm font-medium">4.9 out of 5</span>
-                            <span className="mx-2 text-gray-300">•</span>
-                            <span className="text-sm text-gray-500">150 Reviews</span>
-                          </div>
+          <motion.div
+            className="flex items-center mb-4"
+            variants={fadeUp}
+          >
+            <div className="flex text-yellow-400 mr-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <motion.div
+                  key={star}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <Star className="w-5 h-5 fill-current" />
+                </motion.div>
+              ))}
+            </div>
+            <span className="text-sm font-medium">4.9 out of 5</span>
+            <span className="mx-2 text-gray-300">•</span>
+            <span className="text-sm text-gray-500">150 Reviews</span>
+          </div>
 
-                          <div className="space-y-4">
-                            <div className="border-b pb-4">
-                              <div className="flex justify-between mb-2">
-                                <div className="flex items-center">
-                                  <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium mr-3">
-                                    JD
-                                  </div>
-                                  <div>
-                                    <h4 className="font-medium">John Doe</h4>
-                                    <div className="flex text-yellow-400">
-                                      {[1, 2, 3, 4, 5].map((star) => (
-                                        <Star key={star} className="w-4 h-4 fill-current" />
-                                      ))}
-                                    </div>
-                                  </div>
-                                </div>
-                                <span className="text-sm text-gray-500">2 days ago</span>
-                              </div>
-                              <p className="text-gray-600 text-sm">Great product! Fits perfectly and the quality is amazing.</p>
-                            </div>
-                          </div>
+          <div className="space-y-4">
+            <div className="border-b pb-4">
+              <div className="flex justify-between mb-2">
+                <div className="flex items-center">
+                  <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium mr-3">
+                    JD
+                  </div>
+                  <div>
+                    <h4 className="font-medium">John Doe</h4>
+                    <div className="flex text-yellow-400">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <span className="text-sm text-gray-500">2 days ago</span>
+              </div>
+              <p className="text-gray-600 text-sm">Great product! Fits perfectly and the quality is amazing.</p>
+            </div>
+          </div>
 <<<<<<< HEAD
-                        </div>
+                        </div >
 =======
                         </motion.div>
 >>>>>>> 6e4d586 (any message)
                       )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    </div >
+                  </div >
+                </div >
+              </div >
 
-              <div>
-                <div className="max-w-4xl mx-auto mt-16 px-4">
+  <div>
+    <div className="max-w-4xl mx-auto mt-16 px-4">
+      <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+      <div className="space-y-4">
+        {faqItems.map((faq, index) => (
+          <div key={index} className="border-b border-gray-200">
+            <button
+              className="flex justify-between items-center w-full py-4 text-left text-gray-900 font-medium"
+              onClick={() => toggleFaq(index)}
+              aria-expanded={openFaqIndex === index}
+            >
+              <span>{faq.question}</span>
+              {openFaqIndex === index ? (
+                <Minus className="w-5 h-5 text-gray-500" />
+              ) : (
+                <Plus className="w-5 h-5 text-gray-500" />
+              )}
+            </button>
+            {openFaqIndex === index && (
 <<<<<<< HEAD
-                  <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
-                  <div className="space-y-4">
-                    {faqItems.map((faq, index) => (
-                      <div key={index} className="border-b border-gray-200">
-=======
-                  <motion.h2 className="text-2xl font-bold text-gray-900 mb-8 text-center" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>Frequently Asked Questions</motion.h2>
-                  <div className="space-y-4">
-                    {faqItems.map((faq, index) => (
-                      <motion.div key={index} className="border-b border-gray-200" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
->>>>>>> 6e4d586 (any message)
-                        <button
-                          className="flex justify-between items-center w-full py-4 text-left text-gray-900 font-medium"
-                          onClick={() => toggleFaq(index)}
-                          aria-expanded={openFaqIndex === index}
-                        >
-                          <span>{faq.question}</span>
-                          {openFaqIndex === index ? (
-                            <Minus className="w-5 h-5 text-gray-500" />
-                          ) : (
-                            <Plus className="w-5 h-5 text-gray-500" />
-                          )}
-                        </button>
-                        {openFaqIndex === index && (
-<<<<<<< HEAD
-                          <div className="pb-4 text-gray-600">
-                            <p>{faq.answer}</p>
-                          </div>
-                        )}
-                      </div>
+              <div className="pb-4 text-gray-600">
+                <p>{faq.answer}</p>
+              </div>
+            )}
+          </div>
 =======
                           <motion.div className="pb-4 text-gray-600" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} transition={{ duration: 0.3 }}>
                             <p>{faq.answer}</p>
                           </motion.div>
                         )}
                       </motion.div>
->>>>>>> 6e4d586 (any message)
                     ))}
                   </div>
                 </div>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </motion.div>
 
-                {relatedProducts.length > 0 && (
-                  <div className="mt-16">
+    {relatedProducts.length > 0 && (
+      <div className="mt-16">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">You May Also Like</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {relatedProducts.map((relatedProduct) => (
+            <div key={relatedProduct.id} className="group relative">
+              <Link to={`/product/${relatedProduct.slug}`} className="block">
+                <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-200">
+                  <img
+                    src={relatedProduct.image_url || '/placeholder-image.jpg'}
+                    alt={relatedProduct.name}
+                    className="h-full w-full object-cover object-center group-hover:opacity-75"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/placeholder-image.jpg';
+                    }}
+                  />
+                </div>
+              </Link>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900">
+                    <Link to={`/product/${relatedProduct.slug}`} className="hover:text-rose-600">
+                      {relatedProduct.name}
+                    </Link>
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500">{relatedProduct.category}</p>
+                </div>
+                <p className="text-sm font-medium text-gray-900">${relatedProduct.price.toFixed(2)}</p>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const productToAdd = {
+                    ...relatedProduct,
+                    image_url: relatedProduct.image_url ||
+                      (Array.isArray(relatedProduct.images) && relatedProduct.images[0]) ||
+                      '/path/to/default-image.jpg',
+                    selectedColor: relatedProduct.colors?.[0] || 'Default',
+                    selectedSize: relatedProduct.sizes?.[0] || 'M'
+                  };
+                  addToCart(productToAdd, 1);
+                  toast.success(`${relatedProduct.name} added to cart!`, {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                  });
+                }}
+                className="mt-2 w-full bg-white border border-gray-300 rounded-md py-2 px-4 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 z-10 relative"
+              >
+                Add to Cart
+              </button>
 <<<<<<< HEAD
-                    <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">You May Also Like</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                      {relatedProducts.map((relatedProduct) => (
-                        <div key={relatedProduct.id} className="group relative">
-=======
-                    <motion.h2 className="text-2xl font-bold text-gray-900 mb-8 text-center" variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }}>You May Also Like</motion.h2>
-                    <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-                      {relatedProducts.map((relatedProduct) => (
-                        <motion.div key={relatedProduct.id} className="group relative" variants={fadeUp} whileHover={{ scale: 1.02 }}>
->>>>>>> 6e4d586 (any message)
-                          <Link to={`/product/${relatedProduct.slug}`} className="block">
-                            <div className="aspect-square w-full overflow-hidden rounded-lg bg-gray-200">
-                              <img
-                                src={relatedProduct.image_url || 
-                                  (Array.isArray(relatedProduct.images) && relatedProduct.images[0]) || 
-                                  '/path/to/default-image.jpg'}
-                                alt={relatedProduct.name}
-                                className="h-full w-full object-cover object-center group-hover:opacity-75"
-                                onError={(e) => {
-                                  e.target.onerror = null;
-                                  e.target.src = '/path/to/default-image.jpg';
-                                }}
-                              />
-                            </div>
-                          </Link>
-                          <div className="mt-4 flex justify-between">
-                            <div>
-                              <h3 className="text-sm font-medium text-gray-900">
-                                <Link to={`/product/${relatedProduct.slug}`} className="hover:text-rose-600">
-                                  {relatedProduct.name}
-                                </Link>
-                              </h3>
-                              <p className="mt-1 text-sm text-gray-500">{relatedProduct.category}</p>
-                            </div>
-                            <p className="text-sm font-medium text-gray-900">${relatedProduct.price.toFixed(2)}</p>
-                          </div>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              const productToAdd = {
-                                ...relatedProduct,
-                                image_url: relatedProduct.image_url ||
-                                  (Array.isArray(relatedProduct.images) && relatedProduct.images[0]) ||
-                                  '/path/to/default-image.jpg',
-                                selectedColor: relatedProduct.colors?.[0] || 'Default',
-                                selectedSize: relatedProduct.sizes?.[0] || 'M'
-                              };
-                              addToCart(productToAdd, 1);
-                              toast.success(`${relatedProduct.name} added to cart!`, {
-                                position: "bottom-right",
-                                autoClose: 3000,
-                                hideProgressBar: false,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                              });
-                            }}
-                            className="mt-2 w-full bg-white border border-gray-300 rounded-md py-2 px-4 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 z-10 relative"
-                          >
-                            Add to Cart
-                          </button>
-<<<<<<< HEAD
-                        </div>
+                        </div >
                       ))}
-                    </div>
+                    </div >
 =======
                         </motion.div>
                       ))}
                     </motion.div>
 >>>>>>> 6e4d586 (any message)
+                  </div >
+                )}
+              </div >
+            </div >
+          ) : (
+  <div className="text-center py-12">
+    <h2 className="text-2xl font-bold text-gray-900 mb-4">Product not found</h2>
+    <button
+      onClick={() => navigate('/shop')}
+      className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+    >
+      Back to Shop
+                    </button>
                   </div>
                 )}
               </div>
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Product not found</h2>
-              <button
-                onClick={() => navigate('/shop')}
-                className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-              >
-                Back to Shop
-              </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
-<<<<<<< HEAD
-    </div>
-=======
     </motion.div>
->>>>>>> 6e4d586 (any message)
   );
 };
 

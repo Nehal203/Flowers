@@ -77,9 +77,14 @@ const Cart = () => {
                   <div key={item.id} className="p-4 md:p-6 flex flex-col md:flex-row gap-6">
                     <div className="w-full md:w-32 h-32 flex-shrink-0">
                       <img
-                        src={item.product.image_url}
+                        src={item.product.images && item.product.images.length > 0 
+                          ? item.product.images[0] 
+                          : item.product.image_url || '/placeholder-product.jpg'}
                         alt={item.product.name}
                         className="w-full h-full object-cover rounded-lg"
+                        onError={(e) => {
+                          e.target.src = '/placeholder-product.jpg';
+                        }}
                       />
                     </div>
                     

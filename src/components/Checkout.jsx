@@ -1,10 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FaShoppingCart, FaCreditCard, FaCheck } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Checkout = () => {
     const { cart, getCartTotal, getCartItemCount, clearCart } = useCart();
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const [activeStep, setActiveStep] = useState(1);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -36,8 +39,55 @@ const Checkout = () => {
             setActiveStep(activeStep + 1);
         } else {
             try {
-                console.log('Order submitted:', { ...formData, items: cart, total: getCartTotal() });
+                const orderDate = new Date().toISOString().split('T')[0];
+                const newOrder = {
+                    id: `ORD-${Date.now()}`,
+                    date: orderDate,
+                    status: 'Processing',
+                    items: cart.map(item => ({
+                        name: item.product.name,
+                        quantity: item.quantity,
+                        price: item.product.discount_price || item.product.price,
+                        image: item.product.image_url || ''
+                    })),
+                    total: getCartTotal(),
+                    shippingAddress: `${formData.address}, ${formData.city}, ${formData.postalCode}, ${formData.country}`,
+                    paymentMethod: formData.paymentMethod,
+                    userId: user.email
+                };
+
+                if (user?.email) {
+                    const allOrders = JSON.parse(localStorage.getItem('allUserOrders') || '{}');
+                    const userOrders = allOrders[user.email] || [];
+                    allOrders[user.email] = [newOrder, ...userOrders];
+                    localStorage.setItem('allUserOrders', JSON.stringify(allOrders));
+                    console.log('Order saved to localStorage:', newOrder);
+                }
+
+                console.log('Order submitted:', newOrder);
                 clearCart();
+                
+                // Ensure all required order details are included
+                const orderConfirmationData = {
+                  orderDetails: {
+                    ...newOrder,
+                    id: newOrder.id,
+                    total: newOrder.total,
+                    paymentMethod: newOrder.paymentMethod,
+                    date: newOrder.date,
+                    status: newOrder.status,
+                    items: newOrder.items.map(item => ({
+                      ...item,
+                      name: item.name || 'Unnamed Product',
+                      quantity: item.quantity || 1,
+                      price: item.price || 0,
+                      image: item.image || ''
+                    }))
+                  }
+                };
+                
+                console.log('Navigating to order confirmation with data:', orderConfirmationData);
+                navigate('/orderconfirmation', { state: orderConfirmationData });
             } catch (error) {
                 console.error('Error submitting order:', error);
             }

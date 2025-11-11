@@ -69,9 +69,14 @@ const Wishlist = () => {
               <div key={product.id} className="group relative bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="relative h-64 overflow-hidden">
                   <img
-                    src={product.image_url || product.image}
+                    src={product.images && product.images.length > 0 
+                      ? product.images[0] 
+                      : product.image_url || product.image || '/placeholder-product.jpg'}
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      e.target.src = '/placeholder-product.jpg';
+                    }}
                   />
                   <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                     <button

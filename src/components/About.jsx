@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { motion, useInView, animate } from 'framer-motion';
 
 const About = () => {
-
     const teamMembers = [
         {
             id: 1,
@@ -51,13 +50,27 @@ const About = () => {
         },
     ];
 
-    const fadeUp = { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1, transition: { duration: 0.6 } } };
-    const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
+    const fadeUp = { 
+        hidden: { y: 20, opacity: 0 }, 
+        show: { 
+            y: 0, 
+            opacity: 1, 
+            transition: { duration: 0.6 } 
+        } 
+    };
+    
+    const container = { 
+        hidden: {}, 
+        show: { 
+            transition: { staggerChildren: 0.1 } 
+        } 
+    };
 
     const CountUp = ({ to, duration = 1.6, suffix = '' }) => {
         const ref = React.useRef(null);
         const isInView = useInView(ref, { once: true, amount: 0.4 });
         const [value, setValue] = React.useState(0);
+        
         React.useEffect(() => {
             if (isInView) {
                 const controls = animate(0, to, {
@@ -67,37 +80,12 @@ const About = () => {
                 return () => controls.stop();
             }
         }, [isInView, to, duration]);
-        return (
-            <span ref={ref}>{value}{suffix}</span>
-        );
+        
+        return <span ref={ref}>{value}{suffix}</span>;
     };
 
     return (
         <motion.div className="font-sans" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-    const fadeUp = { hidden: { y: 20, opacity: 0 }, show: { y: 0, opacity: 1, transition: { duration: 0.6 } } };
-    const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
-
-    const CountUp = ({ to, duration = 1.6, suffix = '' }) => {
-        const ref = React.useRef(null);
-        const isInView = useInView(ref, { once: true, amount: 0.4 });
-        const [value, setValue] = React.useState(0);
-        React.useEffect(() => {
-            if (isInView) {
-                const controls = animate(0, to, {
-                    duration,
-                    onUpdate: (v) => setValue(Math.floor(v)),
-                });
-                return () => controls.stop();
-            }
-        }, [isInView, to, duration]);
-        return (
-            <span ref={ref}>{value}{suffix}</span>
-        );
-    };
-
-    return (
-        <motion.div className="font-sans" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
->>>>>>> 6e4d586 (any message)
             <div
                 className="relative h-[700px] bg-cover bg-center flex items-center justify-center text-center"
                 style={{
@@ -109,7 +97,6 @@ const About = () => {
                 }}
             >
                 <div className="absolute inset-0 bg-black/50"></div>
-<<<<<<< HEAD
                 <motion.div className="relative container mx-auto px-4" variants={container} initial="hidden" animate="show">
                     <motion.h1 className="text-md mb-4 text-white" variants={fadeUp}>ABOUT US</motion.h1>
                     <motion.h1 className="text-5xl md:text-7xl font-bold mb-6 text-white" variants={fadeUp}>
@@ -265,7 +252,7 @@ const About = () => {
             <section className="bg-[#1A0000] text-white py-20 px-6 md:px-16">
                 <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     <div className="flex justify-center">
-                        <motion.img
+                            <motion.img
                             src="https://websitedemos.net/flower-shop-04/wp-content/uploads/sites/1414/2023/10/cta.jpg"
                             alt="Florist with flowers"
                             className="w-80 h-96 md:w-[420px] md:h-[520px] object-cover rounded-[3rem]"
@@ -292,7 +279,6 @@ const About = () => {
             </section>
 
         </motion.div>
->>>>>>> 6e4d586 (any message)
     );
 };
 

@@ -1,8 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
+import { useCart } from '../contexts/CartContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const OrderConfirmation = ({ orderDetails }) => {
+  const { clearCart } = useCart();
+  const navigate = useNavigate();
+
+  const [hasClearedCart, setHasClearedCart] = React.useState(false);
+
+  useEffect(() => {
+    if (!hasClearedCart) {
+      clearCart();
+      setHasClearedCart(true);
+      
+      toast.success('Your order has been placed successfully!', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
+
+    const timer = setTimeout(() => {
+      navigate('/');
+    }, 8000);
+    
+    return () => clearTimeout(timer);
+  }, [clearCart, navigate, orderDetails, hasClearedCart]);
   return (
     <div className="min-h-screen bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
